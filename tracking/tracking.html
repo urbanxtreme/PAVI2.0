@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAVI - Track Usage</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-brand">PAVI</div>
+      <ul>
+        <li><a href="../homepage/home.html">Dashboard</a></li>
+        <li><a href="tracking.html" class="active">Track Usage</a></li>
+        <li><a href="../tips/tips.html">Water Tips</a></li>
+        <li><button onclick="logout()" class="logout-btn">Logout</button></li>
+      </ul>
+    </nav>
+
+    <div class="tracking-container">
+      <h1>Track Your Water Usage</h1>
+
+      <div class="tracking-form">
+        <h2>Add New Entry</h2>
+        <form id="waterTrackingForm">
+          <div class="form-group">
+            <label>Activity</label>
+            <select required>
+              <option value="">Select Activity</option>
+              <option value="shower">Shower</option>
+              <option value="dishes">Washing Dishes</option>
+              <option value="laundry">Laundry</option>
+              <option value="garden">Garden/Plants</option>
+              <option value="drinking">Drinking</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Amount (Liters)</label>
+            <input type="number" min="0" required />
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" required />
+          </div>
+          <button type="submit">Add Entry</button>
+        </form>
+      </div>
+
+      <div class="recent-entries">
+        <h2>Recent Entries</h2>
+        <div id="entriesList"></div>
+      </div>
+    </div>
+
+    <!-- <script src="loginsignup.js"></script> -->
+    <script src="tracking.js"></script>
+  </body>
+</html>
