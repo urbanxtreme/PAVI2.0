@@ -110,12 +110,6 @@
 
 
 
-// Clear any existing login state when loading login page
-if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-    localStorage.setItem('isLoggedIn', 'false');
-    localStorage.removeItem('currentUser');
-}
-
 const signUpBtn = document.getElementById("sign-up-btn");
 const signInBtn = document.getElementById("sign-in-btn");
 const container = document.querySelector(".container");
