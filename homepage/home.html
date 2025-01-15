@@ -139,6 +139,7 @@ footer {
             cursor: pointer;
             border-radius: 0.5rem;
             transition: all 0.3s ease;
+            font-size: 1.02rem;
         }
 
         .logout-btn:hover {
@@ -503,7 +504,7 @@ footer {
             <li><a href="home.html" class="active">Dashboard</a></li>
             <li><a href="../tracking/tracking.html">Track Usage</a></li>
             <li><a href="../tips/tips.html">Water Tips</a></li>
-            <li><button onclick="logout()" class="logout-btn">Logout</button></li>
+            <li><button onclick="logout()" class="logout-btn"><b>Logout</b></button></li>
         </ul>
     </nav>
 
@@ -539,28 +540,28 @@ footer {
             <h2>Quick Actions</h2>
             <div class="actions-grid">
                 <div class="action-card" onclick="location.href='../tracking/tracking.html'">
-                    <i>📊</i>
-                    <h3>Log Usage</h3>
+                    <h1>📊</h1>
+                    <h3><u>Log Usage</u></h3>
                     <p>Record your daily water consumption</p>
                 </div>
                 <div class="action-card" onclick="location.href='../tips/tips.html'">
-                    <i>💡</i>
-                    <h3>View Tips</h3>
+                    <h1>💡</h1>
+                    <h3><u>Water Tips</u></h3>
                     <p>Learn water saving techniques</p>
                 </div>
                 <div class="action-card" onclick="showSettings()">
-                    <i>⚙️</i>
-                    <h3>Settings</h3>
+                    <h1>⚙️</h1>
+                    <h3><u>Settings</u></h3>
                     <p>Customize your dashboard</p>
                 </div>
                 <div class="action-card" onclick="downloadReport()">
-                    <i>📥</i>
-                    <h3>Download Report</h3>
+                    <h1>📥</h1>
+                    <h3><u>Download Report</u></h3>
                     <p>Get your usage summary</p>
                 </div>
                 <div class="action-card" onclick="showLeakReportModal()">
-                    <i>💧</i>
-                    <h3>Report Leak</h3>
+                    <h1>💧</h1>
+                    <h3><u>Report Leak</u></h3>
                     <p>Report water leaks in your area</p>
                 </div>
             </div>
@@ -647,8 +648,8 @@ footer {
             <div class="footer-section">
                 <h3>Contact Us</h3>
                 <ul>
-                    <li>Email: support@pavi.com</li>
-                    <li>Phone: (555) 123-4567</li>
+                    <li>Email: oTz2Z@example.com</li>
+                    <li>Phone: +91 1234567890</li>
                     <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
                 </ul>
             </div>
@@ -824,7 +825,32 @@ footer {
         }
 
         function showFeedback() {
-            alert('Feedback form coming soon!');
+            const feedbackFormHtml = `
+                <div class="feedback-modal">
+                    <div class="feedback-content">
+                        <span class="close-btn" onclick="closeFeedbackForm()">&times;</span>
+                        <h2>Feedback Form</h2>
+                        <textarea id="feedback-text" rows="4" placeholder="Your feedback..."></textarea>
+                        <button onclick="submitFeedback()">Submit</button>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', feedbackFormHtml);
+            document.querySelector('.feedback-modal').style.display = 'block';
+
+            function closeFeedbackForm() {
+                document.querySelector('.feedback-modal').remove();
+            }
+
+            function submitFeedback() {
+                const feedback = document.getElementById('feedback-text').value;
+                if (feedback.trim()) {
+                    alert('Thank you for your feedback!');
+                    closeFeedbackForm();
+                } else {
+                    alert('Please enter your feedback before submitting.');
+                }
+            }
         }
 
         function downloadReport() {
