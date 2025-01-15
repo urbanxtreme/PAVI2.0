@@ -5,6 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PAVI - Dashboard</title>
     <style>
+
+footer {
+            background: white;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section {
+            padding: 1rem;
+        }
+
+        .footer-section h3 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #2563eb;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .footer-section {
+                padding: 0;
+            }
+        }
         * {
             margin: 0;
             padding: 0;
@@ -181,11 +253,214 @@
             width: 100%;
         }
 
+        .quick-actions {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s forwards 1s;
+            opacity: 0;
+        }
+
+        .quick-actions h2 {
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-card {
+            background: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            background: #bfdbfe;
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1e40af;
+        }
+
+        .plumbers-list {
+            margin-top: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .plumber-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .plumber-card button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .plumber-card button:hover {
+            background: #1e40af;
+        }
+
+        .emergency {
+            background-color: #fee2e2;
+            border-left: 4px solid #dc2626;
+        }
+
+        .water-tips-preview {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s forwards 1.2s;
+            opacity: 0;
+        }
+
+        .tips-carousel {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .tip-card {
+            background: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .tip-card.active {
+            display: block;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .carousel-controls button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-controls button:hover {
+            background: #1e40af;
+        }
+
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @media (max-width: 768px) {
@@ -203,6 +478,20 @@
 
             .stat-value {
                 font-size: 2rem;
+            }
+
+            .quick-actions {
+                padding: 1.5rem;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
             }
         }
     </style>
@@ -245,19 +534,138 @@
                 <canvas id="waterChart"></canvas>
             </div>
         </div>
+
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <div class="action-card" onclick="location.href='../tracking/tracking.html'">
+                    <i>📊</i>
+                    <h3>Log Usage</h3>
+                    <p>Record your daily water consumption</p>
+                </div>
+                <div class="action-card" onclick="location.href='../tips/tips.html'">
+                    <i>💡</i>
+                    <h3>View Tips</h3>
+                    <p>Learn water saving techniques</p>
+                </div>
+                <div class="action-card" onclick="showSettings()">
+                    <i>⚙️</i>
+                    <h3>Settings</h3>
+                    <p>Customize your dashboard</p>
+                </div>
+                <div class="action-card" onclick="downloadReport()">
+                    <i>📥</i>
+                    <h3>Download Report</h3>
+                    <p>Get your usage summary</p>
+                </div>
+                <div class="action-card" onclick="showLeakReportModal()">
+                    <i>💧</i>
+                    <h3>Report Leak</h3>
+                    <p>Report water leaks in your area</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leak Report Modal -->
+        <div id="leakReportModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeLeakReportModal()">&times;</span>
+                <h2>Report Water Leak</h2>
+                <form id="leakReportForm" onsubmit="submitLeakReport(event)">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" required placeholder="Enter the leak location">
+                    </div>
+                    <div class="form-group">
+                        <label for="leakType">Type of Leak</label>
+                        <select id="leakType" required>
+                            <option value="">Select leak type</option>
+                            <option value="pipe">Pipe Leak</option>
+                            <option value="faucet">Faucet Leak</option>
+                            <option value="toilet">Toilet Leak</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="severity">Severity</label>
+                        <select id="severity" required>
+                            <option value="">Select severity</option>
+                            <option value="low">Low - Slow drip</option>
+                            <option value="medium">Medium - Steady stream</option>
+                            <option value="high">High - Major leak</option>
+                            <option value="emergency">Emergency - Flooding</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="3" placeholder="Describe the leak and any additional details"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Report</button>
+                </form>
+                <div id="plumbersList" class="plumbers-list"></div>
+            </div>
+        </div>
+
+        <div class="water-tips-preview">
+            <h2>Daily Water Saving Tip</h2>
+            <div class="tips-carousel">
+                <div class="tip-card active">
+                    <h3>Fix Leaking Faucets</h3>
+                    <p>A dripping faucet can waste up to 20 gallons of water per day. Check and fix any leaks promptly.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>Shorter Showers</h3>
+                    <p>Reducing your shower time by just 2 minutes can save up to 10 gallons of water per shower.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>Water Plants Early</h3>
+                    <p>Water your plants early in the morning or late in the evening to reduce water loss due to evaporation.</p>
+                </div>
+                <div class="carousel-controls">
+                    <button onclick="prevTip()">Previous</button>
+                    <button onclick="nextTip()">Next</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About PAVI</h3>
+                <p>PAVI helps you track and reduce your water consumption through smart monitoring and personalized tips.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="home.html">Dashboard</a></li>
+                    <li><a href="../tracking/tracking.html">Track Usage</a></li>
+                    <li><a href="../tips/tips.html">Water Tips</a></li>
+                    <li><a href="#" onclick="showSettings()">Settings</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Email: support@pavi.com</li>
+                    <li>Phone: (555) 123-4567</li>
+                    <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 PAVI. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Get chart context
+        // Chart initialization
         const ctx = document.getElementById('waterChart').getContext('2d');
-
-        // Create gradient fill
         const gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(37, 99, 235, 0.5)');
         gradient.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
 
-        // Sample data
         const data = {
             labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
             datasets: [{
@@ -279,103 +687,165 @@
             }]
         };
 
-        // Custom tooltip
-        const customTooltip = {
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            titleColor: '#1e40af',
-            bodyColor: '#4b5563',
-            bodyFont: {
-                size: 14
-            },
-            titleFont: {
-                size: 16,
-                weight: 'bold'
-            },
-            padding: 12,
-            borderColor: '#e5e7eb',
-            borderWidth: 1,
-            displayColors: false,
-            callbacks: {
-                label: function(context) {
-                    return `${context.parsed.y} Liters`;
-                },
-                title: function(context) {
-                    return context[0].label;
-                }
-            }
-        };
-
-        // Chart configuration
-        const config = {
+        const waterChart = new Chart(ctx, {
             type: 'line',
             data: data,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                animation: {
-                    duration: 2000,
-                    easing: 'easeOutQuart'
-                },
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
                 plugins: {
                     legend: {
                         display: false
-                    },
-                    tooltip: customTooltip
+                    }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.1)',
-                            drawBorder: false
+                            color: 'rgba(0, 0, 0, 0.1)'
                         },
                         ticks: {
                             callback: function(value) {
                                 return value + ' L';
-                            },
-                            font: {
-                                size: 12
-                            },
-                            color: '#4b5563'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            font: {
-                                size: 12
-                            },
-                            color: '#4b5563'
+                            }
                         }
                     }
                 }
             }
-        };
-
-        // Initialize chart
-        const waterChart = new Chart(ctx, config);
-
-        // Add hover animation
-        document.getElementById('waterChart').addEventListener('mousemove', (e) => {
-            const points = waterChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
-            
-            if (points.length) {
-                document.getElementById('waterChart').style.cursor = 'pointer';
-            } else {
-                document.getElementById('waterChart').style.cursor = 'default';
-            }
         });
+
+        // Leak Report Functions
+        function showLeakReportModal() {
+            document.getElementById('leakReportModal').style.display = 'block';
+        }
+
+        function closeLeakReportModal() {
+            document.getElementById('leakReportModal').style.display = 'none';
+            document.getElementById('leakReportForm').reset();
+            document.getElementById('plumbersList').innerHTML = '';
+        }
+
+        function submitLeakReport(event) {
+            event.preventDefault();
+            
+            const location = document.getElementById('location').value;
+            const leakType = document.getElementById('leakType').value;
+            const severity = document.getElementById('severity').value;
+            const description = document.getElementById('description').value;
+            
+            // In a real application, you would send this data to your backend
+            console.log('Leak Report:', { location, leakType, severity, description });
+            
+            if (severity === 'emergency') {
+                findNearbyPlumbers(location);
+            } else {
+                alert('Your leak report has been submitted successfully. We will process it and contact you shortly.');
+                closeLeakReportModal();
+            }
+        }
+
+        function findNearbyPlumbers(location) {
+            // Simulate API call to find plumbers
+            const mockPlumbers = [
+                {
+                    id: 1,
+                    name: "Emergency Plumbing Services",
+                    rating: "4.9/5",
+                    distance: "0.8 miles",
+                    phone: "(555) 123-4567",
+                    available: true
+                },
+                {
+                    id: 2,
+                    name: "Quick Fix Plumbing",
+                    rating: "4.8/5",
+                    distance: "1.2 miles",
+                    phone: "(555) 234-5678",
+                    available: true
+                },
+                {
+                    id: 3,
+                    name: "24/7 Plumbers Co.",
+                    rating: "4.7/5",
+                    distance: "1.5 miles",
+                    phone: "(555) 345-6789",
+                    available: true
+                }
+            ];
+
+            displayPlumbers(mockPlumbers);
+        }
+
+        function displayPlumbers(plumbers) {
+            const plumbersList = document.getElementById('plumbersList');
+            plumbersList.innerHTML = '<h3>Available Emergency Plumbers:</h3>';
+            
+            plumbers.forEach(plumber => {
+                plumbersList.innerHTML += `
+                    <div class="plumber-card">
+                        <div>
+                            <h4>${plumber.name}</h4>
+                            <p>Rating: ${plumber.rating}</p>
+                            <p>Distance: ${plumber.distance}</p>
+                            <p>Phone: ${plumber.phone}</p>
+                        </div>
+                        <button onclick="contactPlumber(${plumber.id})">Contact Now</button>
+                    </div>
+                `;
+            });
+        }
+
+        function contactPlumber(plumberId) {
+            alert(`Connecting you to the plumber... They will contact you shortly.`);
+        }
+
+        // Tips Carousel Functions
+        let currentTipIndex = 0;
+        const tips = document.querySelectorAll('.tip-card');
+
+        function showTip(index) {
+            tips.forEach(tip => tip.classList.remove('active'));
+            tips[index].classList.add('active');
+        }
+
+        function nextTip() {
+            currentTipIndex = (currentTipIndex + 1) % tips.length;
+            showTip(currentTipIndex);
+        }
+
+        function prevTip() {
+            currentTipIndex = (currentTipIndex - 1 + tips.length) % tips.length;
+            showTip(currentTipIndex);
+        }
+
+        // Utility Functions
+        function showSettings() {
+            alert('Settings feature coming soon!');
+        }
+
+        function showFeedback() {
+            alert('Feedback form coming soon!');
+        }
+
+        function downloadReport() {
+            alert('Preparing your water usage report...\nThis feature will be available soon!');
+        }
 
         function logout() {
             localStorage.removeItem('user');
             window.location.href = '../loginsignup/index.html';
         }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('leakReportModal');
+            if (event.target == modal) {
+                closeLeakReportModal();
+            }
+        }
+
+        // Initialize tips carousel
+        setInterval(nextTip, 5000);
     </script>
 </body>
 </html>
