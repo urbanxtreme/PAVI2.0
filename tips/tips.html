@@ -1,63 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PAVI - Water Saving Tips</title>
-    <link rel="stylesheet" href="../style.css" />
-  </head>
-  <body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #e6f3ff, #ffffff);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #f0f9ff;
+        }
+
+        nav a.active {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #dc2626;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #fee2e2;
+        }
+
+        .tips-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tips-container h1 {
+            text-align: center;
+            color: #1e40af;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tip-card:nth-child(1) { animation-delay: 0.2s; }
+        .tip-card:nth-child(2) { animation-delay: 0.4s; }
+        .tip-card:nth-child(3) { animation-delay: 0.6s; }
+        .tip-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .tip-card h3 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-card h3::before {
+            content: '💧';
+            font-size: 1.2rem;
+        }
+
+        .tip-card p {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .seasonal-tips {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 1s;
+        }
+
+        .seasonal-tips h2 {
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+        }
+
+        .seasonal-tips ul {
+            list-style: none;
+        }
+
+        .seasonal-tips li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: fadeInRight 0.6s forwards;
+        }
+
+        .seasonal-tips li:nth-child(1) { animation-delay: 1.2s; }
+        .seasonal-tips li:nth-child(2) { animation-delay: 1.4s; }
+        .seasonal-tips li:nth-child(3) { animation-delay: 1.6s; }
+
+        .seasonal-tips li::before {
+            content: '•';
+            color: #2563eb;
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .tips-grid {
+                gap: 1rem;
+            }
+
+            .tip-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
     <nav>
-      <div class="nav-brand">PAVI</div>
-      <ul>
-        <li><a href="../homepage/home.html">Dashboard</a></li>
-        <li><a href="../tracking/tracking.html">Track Usage</a></li>
-        <li><a href="tips.html" class="active">Water Tips</a></li>
-        <li><button onclick="logout()" class="logout-btn">Logout</button></li>
-      </ul>
+        <div class="nav-brand">PAVI</div>
+        <ul>
+            <li><a href="../homepage/home.html">Dashboard</a></li>
+            <li><a href="../tracking/tracking.html">Track Usage</a></li>
+            <li><a href="tips.html" class="active">Water Tips</a></li>
+            <li><button onclick="logout()" class="logout-btn">Logout</button></li>
+        </ul>
     </nav>
 
     <div class="tips-container">
-      <h1>Water Conservation Tips</h1>
+        <h1>Water Conservation Tips</h1>
 
-      <div class="tips-grid">
-        <div class="tip-card">
-          <h3>Shower Smart</h3>
-          <p>
-            Take shorter showers and install a water-efficient showerhead to
-            save up to 15 liters per minute.
-          </p>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <h3>Shower Smart</h3>
+                <p>Take shorter showers and install a water-efficient showerhead to save up to 15 liters per minute.</p>
+            </div>
+            <div class="tip-card">
+                <h3>Fix Leaks</h3>
+                <p>A dripping faucet can waste more than 11,000 liters of water per year. Fix leaks promptly!</p>
+            </div>
+            <div class="tip-card">
+                <h3>Smart Gardening</h3>
+                <p>Water plants early morning or late evening to reduce evaporation. Use mulch to retain moisture.</p>
+            </div>
+            <div class="tip-card">
+                <h3>Efficient Appliances</h3>
+                <p>Use water-efficient washing machines and dishwashers. Run them only when full.</p>
+            </div>
         </div>
-        <div class="tip-card">
-          <h3>Fix Leaks</h3>
-          <p>
-            A dripping faucet can waste more than 11,000 liters of water per
-            year. Fix leaks promptly!
-          </p>
-        </div>
-        <div class="tip-card">
-          <h3>Smart Gardening</h3>
-          <p>
-            Water plants early morning or late evening to reduce evaporation.
-            Use mulch to retain moisture.
-          </p>
-        </div>
-        <div class="tip-card">
-          <h3>Efficient Appliances</h3>
-          <p>
-            Use water-efficient washing machines and dishwashers. Run them only
-            when full.
-          </p>
-        </div>
-      </div>
 
-      <div class="seasonal-tips">
-        <h2>Seasonal Water Saving Tips</h2>
-        <div id="seasonalTipsList"></div>
-      </div>
+        <div class="seasonal-tips">
+            <h2>Seasonal Water Saving Tips</h2>
+            <div id="seasonalTipsList"></div>
+        </div>
     </div>
 
-    <!-- <script src="loginsignup.js"></script> -->
-    <script src="tips.js"></script>
-  </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const seasonalTips = {
+                spring: [
+                    "Collect rainwater for garden use",
+                    "Check and repair winter pipe damage",
+                    "Install water-efficient irrigation systems"
+                ],
+                summer: [
+                    "Water lawn early morning or late evening",
+                    "Use drought-resistant plants",
+                    "Cover pool when not in use"
+                ],
+                fall: [
+                    "Insulate water pipes before winter",
+                    "Clean gutters to manage water flow",
+                    "Adjust watering schedule for cooler weather"
+                ],
+                winter: [
+                    "Prevent pipe freezing",
+                    "Fix indoor leaks",
+                    "Collect melted snow for indoor plants"
+                ]
+            };
+
+            // Get current season
+            const month = new Date().getMonth();
+            let season;
+            if (month >= 2 && month <= 4) season = 'spring';
+            else if (month >= 5 && month <= 7) season = 'summer';
+            else if (month >= 8 && month <= 10) season = 'fall';
+            else season = 'winter';
+
+            // Display seasonal tips
+            const seasonalTipsList = document.getElementById('seasonalTipsList');
+            seasonalTipsList.innerHTML = `
+                <h3>${season.charAt(0).toUpperCase() + season.slice(1)} Tips</h3>
+                <ul>
+                    ${seasonalTips[season].map(tip => `<li>${tip}</li>`).join('')}
+                </ul>
+            `;
+        });
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '../loginsignup/index.html';
+        }
+    </script>
+</body>
 </html>

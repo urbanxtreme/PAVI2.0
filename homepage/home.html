@@ -1,48 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PAVI - Dashboard</title>
-    <link rel="stylesheet" href="../style.css" />
-  </head>
-  <body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #e6f3ff, #ffffff);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #f0f9ff;
+        }
+
+        nav a.active {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #dc2626;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #fee2e2;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .dashboard h1 {
+            text-align: center;
+            color: #1e40af;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #2563eb;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.2s; }
+        .stat-card:nth-child(2) { animation-delay: 0.4s; }
+        .stat-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-card h3 {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .stat-trend {
+            font-size: 0.9rem;
+            color: #059669;
+        }
+
+        .usage-chart {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 0.8s;
+            margin-top: 2rem;
+        }
+
+        .usage-chart h2 {
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .stats-container {
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
     <nav>
-      <div class="nav-brand">PAVI</div>
-      <ul>
-        <li><a href="home.html" class="active">Dashboard</a></li>
-        <li><a href="../tracking/tracking.html">Track Usage</a></li>
-        <li><a href="../tips/tips.html">Water Tips</a></li>
-        <li><button onclick="logout()" class="logout-btn">Logout</button></li>
-      </ul>
+        <div class="nav-brand">PAVI</div>
+        <ul>
+            <li><a href="home.html" class="active">Dashboard</a></li>
+            <li><a href="../tracking/tracking.html">Track Usage</a></li>
+            <li><a href="../tips/tips.html">Water Tips</a></li>
+            <li><button onclick="logout()" class="logout-btn">Logout</button></li>
+        </ul>
     </nav>
 
     <div class="dashboard">
-      <h1>Welcome to Your Water Dashboard</h1>
+        <h1>Welcome to Your Water Dashboard</h1>
 
-      <div class="stats-container">
-        <div class="stat-card">
-          <h3>Today's Usage</h3>
-          <p class="stat-value">45 L</p>
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Today's Usage</h3>
+                <p class="stat-value">45 L</p>
+                <span class="stat-trend">↓ 12% vs yesterday</span>
+            </div>
+            <div class="stat-card">
+                <h3>Weekly Average</h3>
+                <p class="stat-value">320 L</p>
+                <span class="stat-trend">↓ 8% vs last week</span>
+            </div>
+            <div class="stat-card">
+                <h3>Water Saved</h3>
+                <p class="stat-value">120 L</p>
+                <span class="stat-trend">↑ 15% this month</span>
+            </div>
         </div>
-        <div class="stat-card">
-          <h3>Weekly Average</h3>
-          <p class="stat-value">320 L</p>
-        </div>
-        <div class="stat-card">
-          <h3>Water Saved</h3>
-          <p class="stat-value">120 L</p>
-        </div>
-      </div>
 
-      <div class="usage-chart">
-        <h2>Weekly Usage Overview</h2>
-        <canvas id="waterChart"></canvas>
-      </div>
+        <div class="usage-chart">
+            <h2>Weekly Usage Overview</h2>
+            <div class="chart-container">
+                <canvas id="waterChart"></canvas>
+            </div>
+        </div>
     </div>
 
-    <!-- <script src="loginsignup.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="home.js"></script>
-  </body>
+    <script>
+        // Get chart context
+        const ctx = document.getElementById('waterChart').getContext('2d');
+
+        // Create gradient fill
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.5)');
+        gradient.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
+
+        // Sample data
+        const data = {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Water Usage (Liters)',
+                data: [45, 59, 40, 55, 48, 65, 43],
+                borderColor: '#2563eb',
+                backgroundColor: gradient,
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#ffffff',
+                pointBorderColor: '#2563eb',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: '#2563eb',
+                pointHoverBorderColor: '#ffffff',
+                pointHoverBorderWidth: 2,
+            }]
+        };
+
+        // Custom tooltip
+        const customTooltip = {
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            titleColor: '#1e40af',
+            bodyColor: '#4b5563',
+            bodyFont: {
+                size: 14
+            },
+            titleFont: {
+                size: 16,
+                weight: 'bold'
+            },
+            padding: 12,
+            borderColor: '#e5e7eb',
+            borderWidth: 1,
+            displayColors: false,
+            callbacks: {
+                label: function(context) {
+                    return `${context.parsed.y} Liters`;
+                },
+                title: function(context) {
+                    return context[0].label;
+                }
+            }
+        };
+
+        // Chart configuration
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: customTooltip
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' L';
+                            },
+                            font: {
+                                size: 12
+                            },
+                            color: '#4b5563'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            },
+                            color: '#4b5563'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Initialize chart
+        const waterChart = new Chart(ctx, config);
+
+        // Add hover animation
+        document.getElementById('waterChart').addEventListener('mousemove', (e) => {
+            const points = waterChart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+            
+            if (points.length) {
+                document.getElementById('waterChart').style.cursor = 'pointer';
+            } else {
+                document.getElementById('waterChart').style.cursor = 'default';
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.href = '../loginsignup/index.html';
+        }
+    </script>
+</body>
 </html>

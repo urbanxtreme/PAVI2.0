@@ -30,10 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (month >= 8 && month <= 10) season = 'fall';
     else season = 'winter';
 
+
     // Display seasonal tips
     const seasonalTipsList = document.getElementById('seasonalTipsList');
     seasonalTipsList.innerHTML = `
-        <h3>${season.charAt(0).toUpperCase() + season.slice(1)} Tips</h3>
+        <br><h3>${season.charAt(0).toUpperCase() + season.slice(1)} Tips</h3>
         <ul>
             ${seasonalTips[season].map(tip => `<li>${tip}</li>`).join('')}
         </ul>
