@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAVI - Energy Conservation Tips</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Arial, sans-serif;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --accent-color: #1d4ed8;
+      }
+
+      body {
+        background-color: #f0f7ff;
+        margin-top: 70px;
+      }
+
+      .navbar {
+        background: white;
+        padding: 1rem 2rem;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        animation: slideDown 0.5s ease-out;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .logo::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--primary-color);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .logo:hover::after {
+        transform: translateX(0);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links a {
+        color: #666;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-links a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--accent-color);
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: -1;
+        border-radius: 4px;
+      }
+
+      .nav-links a:hover::before {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+
+      .nav-links a.active {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 86, 219, 0.2);
+      }
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      /* .logout {
+        color: #dc2626;
+      } */
+
+      .hero {
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+
+      .hero h1 {
+        color: #2563eb;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        color: #4b5563;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .tip-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .tip-card h3 {
+        color: #2563eb;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .tip-icon {
+        color: #2563eb;
+        font-size: 1.2rem;
+      }
+
+      .stats-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .stat-number {
+        color: #2563eb;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .calculator {
+        background: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 2rem auto;
+      }
+
+      .calculator h2 {
+        margin-bottom: 1.5rem;
+        color: #1f2937;
+      }
+
+      .input-group {
+        margin-bottom: 1rem;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #4b5563;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.25rem;
+      }
+
+      .calculate-btn {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        width: 100%;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .calculate-btn:hover {
+        background: #1d4ed8;
+      }
+
+      .seasonal-tips {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .seasonal-tips h2 {
+        color: #2563eb;
+        margin-bottom: 1rem;
+      }
+
+      .tips-list {
+        list-style-type: none;
+      }
+
+      .tips-list li {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .tips-list li:before {
+        content: "•";
+        color: #2563eb;
+      }
+
+      footer {
+        background: white;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        padding: 3rem 2rem 1rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-section {
+        padding: 1rem;
+      }
+
+      .footer-section h3 {
+        color: #1e40af;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-section p {
+        color: #4b5563;
+        line-height: 1.6;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: #4b5563;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section ul li a:hover {
+        color: #2563eb;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+        color: #6b7280;
+      }
+
+      @media (max-width: 768px) {
+        footer {
+          padding: 2rem 1rem 1rem;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .footer-section {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="#" class="logo">PAVI</a>
+      <div class="nav-links">
+        <a href="../electricdashboard.html/electric.html" class="active"
+          >Dashboard</a
+        >
+        <a href="#">Track Usage</a>
+        <a href="electrictips.html">Energy Tips</a>
+        <a href="#"><b>Logout</b></a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <h1>Save Energy, Save Earth</h1>
+      <p>
+        Small changes in our daily habits can make a huge difference in energy
+        conservation. Join us in our mission to create a sustainable future.
+      </p>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h3>⚡ Smart Lighting</h3>
+        <p>
+          Switch to LED bulbs and use natural light when possible. Turn off
+          lights when leaving rooms. Install motion sensors for automatic
+          control.
+        </p>
+      </div>
+      <div class="tip-card">
+        <h3>🌡️ Temperature Control</h3>
+        <p>
+          Set your thermostat to optimal temperatures: 78°F in summer and 68°F
+          in winter. Use programmable thermostats for better control.
+        </p>
+      </div>
+      <div class="tip-card">
+        <h3>🔌 Standby Power</h3>
+        <p>
+          Unplug electronics when not in use. Use power strips to easily cut off
+          multiple devices. Standby power can account for 10% of energy use.
+        </p>
+      </div>
+      <div class="tip-card">
+        <h3>🏠 Energy-Efficient Appliances</h3>
+        <p>
+          Choose ENERGY STAR certified appliances. Run them during off-peak
+          hours and only when full. Maintain regularly for optimal efficiency.
+        </p>
+      </div>
+    </div>
+
+    <div class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">30%</div>
+          <p>Average savings with LED bulbs</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1200</div>
+          <p>kWh saved per year with smart thermostats</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10%</div>
+          <p>Energy wasted by phantom loads</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="calculator">
+      <h2>Energy Usage Calculator</h2>
+      <div class="input-group">
+        <label>Average daily usage (kWh):</label>
+        <input type="number" id="usage" placeholder="Enter kWh" />
+      </div>
+      <div class="input-group">
+        <label>Hours of peak usage:</label>
+        <input type="number" id="hours" placeholder="Enter hours" />
+      </div>
+      <button class="calculate-btn" onclick="calculateUsage()">
+        Calculate Usage
+      </button>
+    </div>
+
+    <div class="seasonal-tips">
+      <h2>Winter Energy Saving Tips</h2>
+      <ul class="tips-list">
+        <li>Seal windows and doors to prevent heat loss</li>
+        <li>Reverse ceiling fans to push warm air down</li>
+        <li>Use heavy curtains to insulate windows</li>
+        <li>Schedule heating system maintenance</li>
+        <li>Use space heaters wisely in occupied rooms</li>
+      </ul>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About PAVI</h3>
+          <p>
+            PAVI helps you track and reduce your water consumption through smart
+            monitoring and personalized tips.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li>
+              <a href="../electricdashboard.html/electric.html">Dashboard</a>
+            </li>
+            <li><a href="../tracking/tracking.html">Track Usage</a></li>
+            <li><a href="../tips/tips.html">Water Tips</a></li>
+            <li><a href="#" onclick="showSettings()">Settings</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>Email: oTz2Z@example.com</li>
+            <li>Phone: +91 1234567890</li>
+            <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 PAVI. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      function calculateUsage() {
+        const usage = parseFloat(document.getElementById("usage").value);
+        const hours = parseFloat(document.getElementById("hours").value);
+
+        if (isNaN(usage) || isNaN(hours)) {
+          alert("Please enter valid numbers");
+          return;
+        }
+
+        const dailyCost = usage * 0.12; // Assuming $0.12 per kWh
+        const monthlyCost = dailyCost * 30;
+
+        alert(
+          `Estimated monthly cost: $${monthlyCost.toFixed(
+            2
+          )}\nTip: Shifting usage to off-peak hours could save up to 20%`
+        );
+      }
+
+      // Get current page URL
+      const currentLocation = window.location.pathname;
+
+      // Get all navigation links
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      // Remove any existing active classes
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+
+        // Get the href path
+        const linkPath = link.getAttribute("href");
+
+        // If the current page URL includes the link's href, add active class
+        if (linkPath && currentLocation.includes(linkPath)) {
+          link.classList.add("active");
+        }
+      });
+    </script>
+  </body>
+</html>
