@@ -1,36 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Sample data - In real application, this would come from your backend
+    // Achievement data
+    const achievements = [
+        {
+            id: 1,
+            type: 'bronze',
+            icon: 'fa-medal',
+            title: '5% Energy Saver',
+            description: 'Reduced energy consumption by 5% this month',
+            date: '2025-01-10'
+        },
+        {
+            id: 2,
+            type: 'silver',
+            icon: 'fa-award',
+            title: 'Conservation Champion',
+            description: 'Maintained below average usage for 3 months',
+            date: '2025-01-15'
+        },
+        {
+            id: 3,
+            type: 'gold',
+            icon: 'fa-trophy',
+            title: 'Master Conservator',
+            description: 'Achieved 20% reduction in annual consumption',
+            date: '2025-01-16'
+        }
+    ];
+
+    // Room data with consumption metrics
     const roomsData = [
         {
             name: 'Living Room',
             icon: 'fa-couch',
             devices: [
-                { name: 'Smart TV', status: 'active' },
-                { name: 'AC', status: 'inactive' },
-                { name: 'Smart Lights', status: 'active' }
+                { name: 'Smart TV', status: 'active', consumption: 120 },
+                { name: 'AC', status: 'inactive', consumption: 0 },
+                { name: 'Smart Lights', status: 'active', consumption: 30 }
             ]
         },
         {
             name: 'Kitchen',
             icon: 'fa-kitchen-set',
             devices: [
-                { name: 'Refrigerator', status: 'active' },
-                { name: 'Microwave', status: 'inactive' },
-                { name: 'Coffee Maker', status: 'active' }
+                { name: 'Refrigerator', status: 'active', consumption: 150 },
+                { name: 'Microwave', status: 'inactive', consumption: 0 },
+                { name: 'Smart Lights', status: 'active', consumption: 25 }
             ]
         },
         {
             name: 'Bedroom',
             icon: 'fa-bed',
             devices: [
-                { name: 'AC', status: 'active' },
-                { name: 'Smart Lights', status: 'active' },
-                { name: 'Air Purifier', status: 'inactive' }
+                { name: 'AC', status: 'active', consumption: 200 },
+                { name: 'Smart Lights', status: 'active', consumption: 20 },
+                { name: 'Air Purifier', status: 'inactive', consumption: 0 }
             ]
         }
     ];
 
-    // Bill data - In real application, this would come from your backend
+    // Bill data with 6-month history and predictions
     const billData = {
         water: {
             current: 45.20,
@@ -40,11 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { month: 'Sep', amount: 43.80 },
                 { month: 'Oct', amount: 44.50 },
                 { month: 'Nov', amount: 45.20 },
-                { month: 'Dec', amount: 45.90 }
+                { month: 'Dec', amount: 45.90 },
+                { month: 'Jan', amount: 46.50 }
             ],
             prediction: [
-                { month: 'Jan', amount: 48.50 },
-                { month: 'Feb', amount: 47.80 }
+                { month: 'Feb', amount: 48.50 },
+                { month: 'Mar', amount: 47.80 }
             ]
         },
         electricity: {
@@ -55,26 +84,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 { month: 'Sep', amount: 119.40 },
                 { month: 'Oct', amount: 120.10 },
                 { month: 'Nov', amount: 120.80 },
-                { month: 'Dec', amount: 119.90 }
+                { month: 'Dec', amount: 119.90 },
+                { month: 'Jan', amount: 118.50 }
             ],
             prediction: [
-                { month: 'Jan', amount: 115.30 },
-                { month: 'Feb', amount: 114.50 }
+                { month: 'Feb', amount: 115.30 },
+                { month: 'Mar', amount: 114.50 }
             ]
         }
     };
 
     let currentBillChart = null;
 
-    // Initialize rooms
+    // Initialize all components
     initializeRooms();
-
-    // Setup bill modals
     setupBillModals();
-
-    // Start notification system
     initializeNotifications();
+    initializeAchievements();
 
+    // Achievement Functions
+    function initializeAchievements() {
+        const achievementsGrid = document.getElementById('achievementsGrid');
+        achievementsGrid.innerHTML = '';
+        
+        achievements.forEach(achievement => {
+            const achievementElement = createAchievementElement(achievement);
+            achievementsGrid.appendChild(achievementElement);
+        });
+    }
+
+    function createAchievementElement(achievement) {
+        const achievementDiv = document.createElement('div');
+        achievementDiv.className = `achievement-card ${achievement.type}`;
+        
+        achievementDiv.innerHTML = `
+            <div class="achievement-icon">
+                <i class="fas ${achievement.icon}"></i>
+            </div>
+            <div class="achievement-title">${achievement.title}</div>
+            <div class="achievement-description">${achievement.description}</div>
+            <div class="achievement-date">Earned on ${achievement.date}</div>
+        `;
+        
+        achievementDiv.onclick = () => showAchievementModal(achievement);
+        return achievementDiv;
+    }
+
+    function showAchievementModal(achievement) {
+        const modal = document.getElementById('achievementModal');
+        const title = document.getElementById('achievementTitle');
+        const description = document.getElementById('achievementDescription');
+        const date = document.getElementById('achievementDate');
+        const icon = document.querySelector('.achievement-modal .achievement-icon');
+        
+        title.textContent = achievement.title;
+        description.textContent = achievement.description;
+        date.textContent = `Earned on ${achievement.date}`;
+        icon.innerHTML = `<i class="fas ${achievement.icon}"></i>`;
+        icon.className = `achievement-icon ${achievement.type}`;
+        
+        modal.style.display = 'block';
+    }
+
+    // Room Management Functions
     function initializeRooms() {
         const roomsGrid = document.getElementById('roomsGrid');
         roomsGrid.innerHTML = '';
@@ -91,12 +163,17 @@ document.addEventListener('DOMContentLoaded', () => {
         roomDiv.innerHTML = `
             <h3><i class="fas ${room.icon}"></i> ${room.name}</h3>
             <ul class="device-list">
-                ${room.devices.map(device => `
+                ${room.devices.map(device => ` 
                     <li>
-                        <span>${device.name}</span>
-                        <span class="device-status ${device.status}">
-                            ${device.status === 'active' ? '● Online' : '○ Offline'}
-                        </span>
+                        <div>
+                            <span>${device.name}</span>
+                            <div class="device-status ${device.status}">
+                                ${device.status === 'active' ? '● Online' : '○ Offline'}
+                            </div>
+                            ${device.status === 'active' ? 
+                                `<div class="device-consumption">Current usage: ${device.consumption}W</div>` 
+                                : ''} 
+                        </div>
                     </li>
                 `).join('')}
             </ul>
@@ -104,41 +181,28 @@ document.addEventListener('DOMContentLoaded', () => {
         
         return roomDiv;
     }
-    function previewImage(event) {
-        const input = event.target;
-        const previewImageElement = document.getElementById('previewImage');
-    
-        if (input.files && input.files[0]) {
-            const fileReader = new FileReader();
-    
-            fileReader.onload = function (e) {
-                previewImageElement.src = e.target.result;
-                previewImageElement.style.display = 'block'; // Show the image
-            };
-    
-            fileReader.readAsDataURL(input.files[0]);
-        } else {
-            previewImageElement.src = '';
-            previewImageElement.style.display = 'none'; // Hide the image if no file is selected
-        }
-    }
-    
 
-    // Initialize image preview functionality
-    previewImage();
+    // Bill Modal Functions
     function setupBillModals() {
         const modal = document.getElementById('billModal');
         const waterBillBtn = document.getElementById('showWaterBill');
         const electricityBillBtn = document.getElementById('showElectricityBill');
         const closeBtn = document.querySelector('.close-modal');
+        const achievementModalClose = document.querySelector('#achievementModal .close-modal');
 
         waterBillBtn.onclick = () => showBillModal('water');
         electricityBillBtn.onclick = () => showBillModal('electricity');
         closeBtn.onclick = () => modal.style.display = 'none';
+        achievementModalClose.onclick = () => {
+            document.getElementById('achievementModal').style.display = 'none';
+        };
 
         window.onclick = (event) => {
             if (event.target === modal) {
                 modal.style.display = 'none';
+            }
+            if (event.target === document.getElementById('achievementModal')) {
+                document.getElementById('achievementModal').style.display = 'none';
             }
         };
     }
@@ -153,14 +217,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = billData[type];
         
-        // Update modal content
         modalTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Bill Details`;
         currentAmount.textContent = `$${data.current.toFixed(2)}`;
         estimatedAmount.textContent = `$${data.estimated.toFixed(2)}`;
-        currentPeriod.textContent = 'December 2024';
-        estimatedPeriod.textContent = 'January 2025';
+        currentPeriod.textContent = 'January 2025';
+        estimatedPeriod.textContent = 'February 2025';
 
-        // Create or update the graph
         createBillGraph(data.history, data.prediction, type);
 
         modal.style.display = 'block';
@@ -169,27 +231,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBillGraph(history, prediction, type) {
         const ctx = document.getElementById('billGraph').getContext('2d');
         
-        // Destroy existing chart if it exists
         if (currentBillChart) {
             currentBillChart.destroy();
         }
 
-        // Prepare data for the chart
         const labels = [...history.map(item => item.month), ...prediction.map(item => item.month)];
         const historicalData = history.map(item => item.amount);
         const predictionData = Array(history.length).fill(null).concat(prediction.map(item => item.amount));
 
-        // Create gradient for historical data
         const gradientHistorical = ctx.createLinearGradient(0, 0, 0, 300);
         gradientHistorical.addColorStop(0, 'rgba(51, 102, 204, 0.2)');
         gradientHistorical.addColorStop(1, 'rgba(51, 102, 204, 0)');
 
-        // Create gradient for prediction data
         const gradientPrediction = ctx.createLinearGradient(0, 0, 0, 300);
         gradientPrediction.addColorStop(0, 'rgba(255, 107, 107, 0.2)');
         gradientPrediction.addColorStop(1, 'rgba(255, 107, 107, 0)');
 
-        // Create new chart
         currentBillChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -220,15 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    title: {
-                        display: true,
-                        text: `${type.charAt(0).toUpperCase() + type.slice(1)} Usage Trend`,
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        },
-                        padding: 20
-                    },
                     tooltip: {
                         mode: 'index',
                         intersect: false,
@@ -236,19 +284,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             label: function(context) {
                                 return `${context.dataset.label}: $${context.raw.toFixed(2)}`;
                             }
-                        },
-                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                        titleColor: '#333',
-                        bodyColor: '#666',
-                        borderColor: '#ddd',
-                        borderWidth: 1
+                        }
                     },
                     legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 20,
-                            usePointStyle: true
-                        }
+                        position: 'bottom'
                     }
                 },
                 scales: {
@@ -256,46 +295,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         beginAtZero: false,
                         title: {
                             display: true,
-                            text: 'Amount ($)',
-                            font: {
-                                weight: 'bold'
-                            }
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
+                            text: 'Amount ($)'
                         }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'nearest'
-                },
-                animations: {
-                    tension: {
-                        duration: 1000,
-                        easing: 'linear'
                     }
                 }
             }
         });
     }
 
+    // Notification System
     function initializeNotifications() {
         const notificationBar = document.getElementById('notificationBar');
         const notificationText = document.getElementById('notificationText');
 
-        // Sample notifications - would come from backend in real application
         const notifications = [
             'Living Room AC has been running for 8 hours',
             'Kitchen Coffee Maker was left on',
             'Bedroom Air Purifier needs filter replacement',
             'Water usage is 15% higher than usual',
-            'Energy saving mode activated in Living Room'
+            'Energy saving mode activated in Living Room',
+            'New achievement unlocked: Energy Saver!'
         ];
 
         let currentNotification = 0;
@@ -311,10 +330,22 @@ document.addEventListener('DOMContentLoaded', () => {
             currentNotification = (currentNotification + 1) % notifications.length;
         }
 
-        // Show first notification after a short delay
         setTimeout(showNextNotification, 1000);
-
-        // Rotate notifications every 6 seconds
         setInterval(showNextNotification, 6000);
+    }
+
+    // Profile Picture Upload
+    const uploadProfilePic = document.getElementById('uploadProfilePic');
+    if (uploadProfilePic) {
+        uploadProfilePic.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePic').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     }
 });

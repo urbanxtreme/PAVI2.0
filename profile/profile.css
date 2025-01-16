@@ -1,77 +1,3 @@
-
-footer {
-    background: white;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    padding: 3rem 2rem 1rem;
-    margin-top: 4rem;
-  }
-
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .footer-section {
-    padding: 1rem;
-  }
-
-  .footer-section h3 {
-    color: #1e40af;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-  }
-
-  .footer-section p {
-    color: #4b5563;
-    line-height: 1.6;
-  }
-
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .footer-section ul li {
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-section ul li a {
-    color: #4b5563;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .footer-section ul li a:hover {
-    color: #2563eb;
-  }
-
-  .copyright {
-    text-align: center;
-    padding-top: 2rem;
-    margin-top: 2rem;
-    border-top: 1px solid #e5e7eb;
-    color: #6b7280;
-  }
-
-  @media (max-width: 768px) {
-    footer {
-      padding: 2rem 1rem 1rem;
-    }
-
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .footer-section {
-      padding: 0;
-    }
-  }
-
-
 :root {
     --primary-color: #3366CC;
     --secondary-color: #FF6B6B;
@@ -80,6 +6,7 @@ footer {
     --text-color: #333333;
     --border-radius: 8px;
     --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --hover-opacity: 0.8;
 }
 
 * {
@@ -169,6 +96,11 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: var(--shadow);
+    transition: box-shadow 0.3s ease;
+}
+
+.profile-header-section:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .profile-info {
@@ -178,24 +110,41 @@ body {
 }
 
 .profile-pic-container {
+    position: relative;
     width: 100px;
     height: 100px;
+    margin-bottom: 1rem;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--primary-color);
 }
 
-.user-details h1 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+.upload-btn {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
 }
 
-.user-details h2 {
-    font-size: 1.2rem;
-    color: #666;
+.upload-btn:hover {
+    background-color: #2855b0;
+    transform: translateX(-50%) translateY(-3px);
 }
 
-/* Quick Actions */
 /* Quick Actions */
 .quick-actions {
     display: flex;
@@ -213,16 +162,11 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: opacity 0.2s;
+    transition: opacity 0.3s ease;
 }
 
 .bill-btn:hover {
-    opacity: 0.9;
-}
-
-
-.bill-btn:hover {
-    opacity: 0.9;
+    opacity: var(--hover-opacity);
 }
 
 /* Room Management */
@@ -245,6 +189,11 @@ body {
     padding: 1.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
 }
 
 .room-card h3 {
@@ -374,4 +323,173 @@ body {
     .bill-amount {
         font-size: 2rem;
     }
+}
+
+/* Footer */
+footer {
+    background: white;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem 1rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section {
+    padding: 1rem;
+}
+
+.footer-section h3 {
+    color: #1e40af;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #2563eb;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 2rem 1rem 1rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .footer-section {
+        padding: 0;
+    }
+}
+
+.achievements-section {
+    background-color: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+}
+
+.achievements-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.achievement-card {
+    background-color: var(--background-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+}
+
+.achievement-card.bronze {
+    border-color: #CD7F32;
+}
+
+.achievement-card.silver {
+    border-color: #C0C0C0;
+}
+
+.achievement-card.gold {
+    border-color: #FFD700;
+}
+
+.achievement-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.achievement-card.bronze .achievement-icon {
+    color: #CD7F32;
+}
+
+.achievement-card.silver .achievement-icon {
+    color: #C0C0C0;
+}
+
+.achievement-card.gold .achievement-icon {
+    color: #FFD700;
+}
+
+.achievement-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.achievement-description {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.achievement-date {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 1rem;
+}
+
+.achievement-modal .achievement-details {
+    text-align: center;
+    padding: 2rem;
+}
+
+.achievement-modal .achievement-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.room-card .device-list .device-consumption {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
 }
