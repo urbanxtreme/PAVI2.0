@@ -1,138 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PAVI - Water Saving Tips</title>
     <style>
-        footer {
-            background: white;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-            padding: 3rem 2rem 1rem;
-            margin-top: 4rem;
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        max-width: 600px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+        animation: scaleIn 0.3s ease-out;
+      }
+
+      @keyframes scaleIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
         }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        to {
+          transform: scale(1);
+          opacity: 1;
         }
+      }
 
-        .footer-section {
-            padding: 1rem;
+      .pledge-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #1e40af;
+        margin: 2rem 0;
+        text-align: left;
+      }
+
+      .confirm-pledge-btn {
+        background: #2563eb;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .confirm-pledge-btn:hover {
+        background: #1e40af;
+        transform: scale(1.05);
+      }
+
+      .typing-effect {
+        border-right: 2px solid #1e40af;
+        white-space: pre-wrap;
+        overflow: hidden;
+        width: 0;
+        animation: typing 4s steps(200) forwards;
+      }
+
+      @keyframes typing {
+        to {
+          width: 100%;
         }
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
 
-        .footer-section h3 {
-            color: #1e40af;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
+      body {
+        background: linear-gradient(to bottom, #e6f3ff, #ffffff);
+        min-height: 100vh;
+      }
 
-        .footer-section p {
-            color: #4b5563;
-            line-height: 1.6;
-        }
+      nav {
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .footer-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section ul li a {
-            color: #4b5563;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section ul li a:hover {
-            color: #2563eb;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
-        }
-
-        @media (max-width: 768px) {
-            footer {
-                padding: 2rem 1rem 1rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .footer-section {
-                padding: 0;
-            }
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(to bottom, #e6f3ff, #ffffff);
-            min-height: 100vh;
-            
-        }
-
-        nav {
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem 2rem;
-        }
-
-        .nav-brand {
+      .nav-brand {
         font-size: 1.75rem;
         font-weight: 700;
         color: #2563eb;
         letter-spacing: -0.5px;
       }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      nav a {
+        text-decoration: none;
+        color: #333;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
 
-        nav a {
-            text-decoration: none;
-            color: #333;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
+      nav a:hover {
+        background: #f0f9ff;
+      }
 
-        nav a:hover {
-            background: #f0f9ff;
-        }
+      nav a.active {
+        background: #bfdbfe;
+        color: #1e40af;
+      }
 
-        nav a.active {
-            background: #bfdbfe;
-            color: #1e40af;
-        }
-
-        .logout-btn {
+      .logout-btn {
         background: none;
         border: none;
         color: #dc2626;
@@ -147,251 +144,760 @@
         background: #fee2e2;
       }
 
-        .tips-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+      .hero-section {
+        background: linear-gradient(
+          rgba(37, 99, 235, 0.1),
+          rgba(37, 99, 235, 0.05)
+        );
+        padding: 4rem 2rem;
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .hero-section h1 {
+        font-size: 3rem;
+        color: #1e40af;
+        margin-bottom: 1rem;
+      }
+
+      .hero-section p {
+        font-size: 1.2rem;
+        color: #4b5563;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .tips-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      .tips-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .tip-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s forwards;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .tip-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .tip-card h3 {
+        color: #1e40af;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .tip-card h3::before {
+        content: "💧";
+        font-size: 1.2rem;
+      }
+
+      .tip-card p {
+        color: #4b5563;
+        line-height: 1.6;
+      }
+
+      .water-facts {
+        background: #f0f9ff;
+        padding: 2rem;
+        border-radius: 1rem;
+        margin: 3rem auto;
+        max-width: 1200px;
+      }
+
+      .fact-counter {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        text-align: center;
+        padding: 2rem 0;
+      }
+
+      .fact-item {
+        padding: 1rem;
+      }
+
+      .fact-number {
+        font-size: 2.5rem;
+        color: #2563eb;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .interactive-calculator {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 3rem auto;
+      }
+
+      .calculator-form {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-group label {
+        color: #4b5563;
+        font-weight: 500;
+      }
+
+      .form-group input {
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+      }
+
+      .calculate-btn {
+        background: #2563eb;
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .calculate-btn:hover {
+        background: #1e40af;
+      }
+
+      .result {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f0f9ff;
+        border-radius: 0.5rem;
+        display: none;
+      }
+
+      .seasonal-tips {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 3rem 0;
+      }
+
+      .seasonal-tips h2 {
+        color: #1e40af;
+        margin-bottom: 1.5rem;
+      }
+
+      .seasonal-tips ul {
+        list-style: none;
+      }
+
+      .seasonal-tips li {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .seasonal-tips li::before {
+        content: "•";
+        color: #2563eb;
+        position: absolute;
+        left: 0;
+        font-size: 1.5rem;
+      }
+
+      .did-you-know {
+        padding: 2rem;
+        margin: 3rem auto;
+        max-width: 1200px;
+      }
+
+      .fact-carousel {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .fact-slide {
+        display: none;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .fact-slide.active {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .carousel-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .carousel-btn {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .carousel-btn:hover {
+        background: #1e40af;
+      }
+
+      .pledge-section {
+        background: linear-gradient(
+          rgba(37, 99, 235, 0.05),
+          rgba(37, 99, 235, 0.1)
+        );
+        padding: 3rem 2rem;
+        text-align: center;
+        margin: 3rem 0;
+      }
+
+      .pledge-btn {
+        background: #2563eb;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        margin-top: 1rem;
+      }
+
+      .pledge-btn:hover {
+        transform: scale(1.05);
+        background: #1e40af;
+      }
+
+      footer {
+        background: white;
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        padding: 3rem 2rem 1rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-section {
+        padding: 1rem;
+      }
+
+      .footer-section h3 {
+        color: #1e40af;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-section p {
+        color: #4b5563;
+        line-height: 1.6;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section ul li a {
+        color: #4b5563;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section ul li a:hover {
+        color: #2563eb;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+        color: #6b7280;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        nav ul {
+          gap: 1rem;
         }
 
-        .tips-container h1 {
-            text-align: center;
-            color: #1e40af;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards;
+        .hero-section {
+          padding: 2rem 1rem;
+        }
+
+        .hero-section h1 {
+          font-size: 2rem;
         }
 
         .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+          gap: 1rem;
         }
 
         .tip-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          padding: 1rem;
         }
 
-        .tip-card:nth-child(1) { animation-delay: 0.2s; }
-        .tip-card:nth-child(2) { animation-delay: 0.4s; }
-        .tip-card:nth-child(3) { animation-delay: 0.6s; }
-        .tip-card:nth-child(4) { animation-delay: 0.8s; }
-
-        .tip-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        .fact-counter {
+          grid-template-columns: 1fr;
         }
 
-        .tip-card h3 {
-            color: #1e40af;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        footer {
+          padding: 2rem 1rem 1rem;
         }
 
-        .tip-card h3::before {
-            content: '💧';
-            font-size: 1.2rem;
+        .footer-content {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
         }
 
-        .tip-card p {
-            color: #4b5563;
-            line-height: 1.6;
+        .footer-section {
+          padding: 0;
         }
-
-        .seasonal-tips {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards 1s;
-        }
-
-        .seasonal-tips h2 {
-            color: #1e40af;
-            margin-bottom: 1.5rem;
-        }
-
-        .seasonal-tips ul {
-            list-style: none;
-        }
-
-        .seasonal-tips li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-            opacity: 0;
-            transform: translateX(20px);
-            animation: fadeInRight 0.6s forwards;
-        }
-
-        .seasonal-tips li:nth-child(1) { animation-delay: 1.2s; }
-        .seasonal-tips li:nth-child(2) { animation-delay: 1.4s; }
-        .seasonal-tips li:nth-child(3) { animation-delay: 1.6s; }
-
-        .seasonal-tips li::before {
-            content: '•';
-            color: #2563eb;
-            position: absolute;
-            left: 0;
-            font-size: 1.5rem;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 1rem;
-            }
-
-            .tips-grid {
-                gap: 1rem;
-            }
-
-            .tip-card {
-                padding: 1rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav>
-        <div class="nav-brand"><b>PAVI</b></div>
-        <ul>
-            <li><a href="../homepage/home.html">Dashboard</a></li>
-            <li><a href="../tracking/tracking.html">Track Usage</a></li>
-            <li><a href="tips.html" class="active">Water Tips</a></li>
-            <li><button onclick="logout()" class="logout-btn"><b>Logout</b></button></li>
-        </ul>
+      <div class="nav-brand"><b>PAVI</b></div>
+      <ul>
+        <li><a href="../homepage/home.html">Dashboard</a></li>
+        <li><a href="../tracking/tracking.html">Track Usage</a></li>
+        <li><a href="tips.html" class="active">Water Tips</a></li>
+        <li>
+          <button onclick="logout()" class="logout-btn"><b>Logout</b></button>
+        </li>
+      </ul>
     </nav>
 
-    <div class="tips-container">
-        <h1>Water Conservation Tips</h1>
-
-        <div class="tips-grid">
-            <div class="tip-card">
-                <h3>Shower Smart</h3>
-                <p>Take shorter showers and install a water-efficient showerhead to save up to 15 liters per minute.</p>
-            </div>
-            <div class="tip-card">
-                <h3>Fix Leaks</h3>
-                <p>A dripping faucet can waste more than 11,000 liters of water per year. Fix leaks promptly!</p>
-            </div>
-            <div class="tip-card">
-                <h3>Smart Gardening</h3>
-                <p>Water plants early morning or late evening to reduce evaporation. Use mulch to retain moisture.</p>
-            </div>
-            <div class="tip-card">
-                <h3>Efficient Appliances</h3>
-                <p>Use water-efficient washing machines and dishwashers. Run them only when full.</p>
-            </div>
-        </div>
-
-        <div class="seasonal-tips">
-            <h2>Seasonal Water Saving Tips</h2>
-            <div id="seasonalTipsList"></div>
-        </div>
+    <div class="hero-section">
+      <h1>Save Water, Save Life</h1>
+      <p>
+        Small changes in our daily habits can make a huge difference in water
+        conservation. Join us in our mission to preserve Earth's most precious
+        resource.
+      </p>
     </div>
+
+    <div class="tips-container">
+      <div class="tips-grid">
+        <div class="tip-card">
+          <h3>Shower Smart</h3>
+          <p>
+            Take shorter showers and install a water-efficient showerhead to
+            save up to 15 liters per minute. A 5-minute shower uses less water
+            than a full bath.
+          </p>
+        </div>
+        <div class="tip-card">
+          <h3>Fix Leaks</h3>
+          <p>
+            A dripping faucet can waste more than 11,000 liters of water per
+            year. Regular maintenance of pipes and faucets can prevent
+            significant water waste.
+          </p>
+        </div>
+        <div class="tip-card">
+          <h3>Smart Gardening</h3>
+          <p>
+            Water plants early morning or late evening to reduce evaporation.
+            Use mulch to retain moisture and consider installing a drip
+            irrigation system.
+          </p>
+        </div>
+        <div class="tip-card">
+          <h3>Efficient Appliances</h3>
+          <p>
+            Use water-efficient washing machines and dishwashers. Run them only
+            when full and choose eco-friendly settings whenever possible.
+          </p>
+        </div>
+      </div>
+
+      <div class="water-facts">
+        <h2>Impact of Water Conservation</h2>
+        <div class="fact-counter">
+          <div class="fact-item">
+            <div class="fact-number" data-target="1100">0</div>
+            <p>Liters saved per month by fixing a leaky faucet</p>
+          </div>
+          <div class="fact-item">
+            <div class="fact-number" data-target="70">0</div>
+            <p>Percentage of Earth's surface covered in water</p>
+          </div>
+          <div class="fact-item">
+            <div class="fact-number" data-target="3">0</div>
+            <p>Percentage of Earth's water that is freshwater</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="interactive-calculator">
+        <h2>Water Usage Calculator</h2>
+        <div class="calculator-form">
+          <div class="form-group">
+            <label>Average shower duration (minutes):</label>
+            <input type="number" id="showerTime" min="0" value="10" />
+          </div>
+          <div class="form-group">
+            <label>Showers per week:</label>
+            <input type="number" id="showersPerWeek" min="0" value="7" />
+          </div>
+          <button class="calculate-btn" onclick="calculateWaterUsage()">
+            Calculate Usage
+          </button>
+          <div class="result" id="calculationResult"></div>
+        </div>
+      </div>
+
+      <div class="seasonal-tips">
+        <h2>Seasonal Water Saving Tips</h2>
+        <div id="seasonalTipsList"></div>
+      </div>
+
+      <div class="did-you-know">
+        <h2>Did You Know?</h2>
+        <div class="fact-carousel">
+          <div class="fact-slide active">
+            <h3>🌊 Ocean Facts</h3>
+            <p>
+              The Pacific Ocean contains more than half of the world's water
+              supply. Despite this abundance, only a tiny fraction is suitable
+              for human use.
+            </p>
+          </div>
+          <div class="fact-slide">
+            <h3>💧 Daily Usage</h3>
+            <p>
+              The average person uses 150 liters of water per day for indoor
+              home use. Small changes in habits can significantly reduce this
+              number.
+            </p>
+          </div>
+          <div class="fact-slide">
+            <h3>🚰 Conservation Impact</h3>
+            <p>
+              Turning off the tap while brushing teeth can save up to 8 liters
+              of water per day. That's nearly 3,000 liters per year!
+            </p>
+          </div>
+          <div class="fact-slide">
+            <h3>🌱 Garden Wisdom</h3>
+            <p>
+              Watering your garden in the early morning or late evening can
+              reduce water loss due to evaporation by up to 40%.
+            </p>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-btn" onclick="prevSlide()">Previous</button>
+            <button class="carousel-btn" onclick="nextSlide()">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pledge-section">
+        <h2>Take the Water Conservation Pledge</h2>
+        <p>
+          Join thousands of others in committing to water conservation
+          practices. Every drop counts!
+        </p>
+        <button class="pledge-btn" onclick="takePledge()">
+          I Pledge to Save Water
+        </button>
+      </div>
+    </div>
+    <div class="modal-overlay" id="pledgeModal">
+      <div class="modal-content">
+        <h2>Water Conservation Pledge</h2>
+        <div class="pledge-text typing-effect" id="pledgeText">
+          I take an Oath to conserve water and to use water wisely. I pledge to consume the most precious treasure water judiciously and not waste even a drop of water. I also pledge to motivate my family, friends and nieghbours to use water wisely and not waste even a drop of it.
+        </div>
+        <button
+          class="confirm-pledge-btn"
+          id="confirmPledgeBtn"
+          style="display: none"
+        >
+          I Confirm My Pledge
+        </button>
+      </div>
+    </div>
+
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About PAVI</h3>
-                <p>PAVI helps you track and reduce your water consumption through smart monitoring and personalized tips.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="../homepage/home.html">Dashboard</a></li>
-                    <li><a href="../tracking/tracking.html">Track Usage</a></li>
-                    <li><a href="tips.html">Water Tips</a></li>
-                    <li><a href="#" onclick="showSettings()">Settings</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <ul>
-                    <li>Email: oTz2Z@example.com</li>
-                    <li>Phone: +91 1234567890</li>
-                    <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
-                </ul>
-            </div>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About PAVI</h3>
+          <p>
+            PAVI helps you track and reduce your water consumption through smart
+            monitoring and personalized tips.
+          </p>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 PAVI. All rights reserved.</p>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../homepage/home.html">Dashboard</a></li>
+            <li><a href="../tracking/tracking.html">Track Usage</a></li>
+            <li><a href="tips.html">Water Tips</a></li>
+            <li><a href="../settings/settings.html">Settings</a></li>
+          </ul>
         </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>Email: support@pavi.com</li>
+            <li>Phone: +91 1234567890</li>
+            <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 PAVI. All rights reserved.</p>
+      </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const seasonalTips = {
-                spring: [
-                    "Collect rainwater for garden use",
-                    "Check and repair winter pipe damage",
-                    "Install water-efficient irrigation systems"
-                ],
-                summer: [
-                    "Water lawn early morning or late evening",
-                    "Use drought-resistant plants",
-                    "Cover pool when not in use"
-                ],
-                fall: [
-                    "Insulate water pipes before winter",
-                    "Clean gutters to manage water flow",
-                    "Adjust watering schedule for cooler weather"
-                ],
-                winter: [
-                    "Prevent pipe freezing",
-                    "Fix indoor leaks",
-                    "Collect melted snow for indoor plants"
-                ]
-            };
+      document.addEventListener("DOMContentLoaded", () => {
+        // Seasonal tips data
+        const seasonalTips = {
+          spring: [
+            "Collect rainwater for garden use",
+            "Check and repair winter pipe damage",
+            "Install water-efficient irrigation systems",
+            "Plant drought-resistant spring flowers",
+            "Clean and maintain gutters for proper water flow",
+          ],
+          summer: [
+            "Water lawn early morning or late evening",
+            "Use drought-resistant plants",
+            "Cover pool when not in use",
+            "Use mulch in gardens to retain moisture",
+            "Set up a rain barrel system",
+          ],
+          fall: [
+            "Insulate water pipes before winter",
+            "Clean gutters to manage water flow",
+            "Adjust watering schedule for cooler weather",
+            "Check for leaks before winter",
+            "Drain and store garden hoses properly",
+          ],
+          winter: [
+            "Prevent pipe freezing",
+            "Fix indoor leaks promptly",
+            "Collect melted snow for indoor plants",
+            "Maintain optimal heating temperature",
+            "Install pipe insulation where needed",
+          ],
+        };
 
-            // Get current season
-            const month = new Date().getMonth();
-            let season;
-            if (month >= 2 && month <= 4) season = 'spring';
-            else if (month >= 5 && month <= 7) season = 'summer';
-            else if (month >= 8 && month <= 10) season = 'fall';
-            else season = 'winter';
+        // Get current season
+        const month = new Date().getMonth();
+        let season;
+        if (month >= 2 && month <= 4) season = "spring";
+        else if (month >= 5 && month <= 7) season = "summer";
+        else if (month >= 8 && month <= 10) season = "fall";
+        else season = "winter";
 
-            // Display seasonal tips
-            const seasonalTipsList = document.getElementById('seasonalTipsList');
-            seasonalTipsList.innerHTML = `
-                <h3>${season.charAt(0).toUpperCase() + season.slice(1)} Tips</h3><br>
+        // Display seasonal tips
+        const seasonalTipsList = document.getElementById("seasonalTipsList");
+        seasonalTipsList.innerHTML = `
+                <h3>${
+                  season.charAt(0).toUpperCase() + season.slice(1)
+                } Tips</h3>
                 <ul>
-                    ${seasonalTips[season].map(tip => `<li>${tip}</li>`).join('')}
+                    ${seasonalTips[season]
+                      .map((tip) => `<li>${tip}</li>`)
+                      .join("")}
                 </ul>
             `;
-        });
 
-        function logout() {
-            localStorage.removeItem('user');
-            window.location.href = '../loginsignup/index.html';
-        }
+        // Initialize fact counter animation
+        animateFactCounters();
+      });
+
+      // Animate fact counters
+      function animateFactCounters() {
+        const factNumbers = document.querySelectorAll(".fact-number");
+
+        factNumbers.forEach((number) => {
+          const target = parseInt(number.getAttribute("data-target"));
+          const increment = target / 50;
+          let current = 0;
+
+          const updateNumber = () => {
+            if (current < target) {
+              current += increment;
+              number.textContent = Math.round(current);
+              requestAnimationFrame(updateNumber);
+            } else {
+              number.textContent = target;
+            }
+          };
+
+          updateNumber();
+        });
+      }
+
+      // Water usage calculator
+      function calculateWaterUsage() {
+        const showerTime = document.getElementById("showerTime").value;
+        const showersPerWeek = document.getElementById("showersPerWeek").value;
+        const waterPerMinute = 10; // Average shower uses 10 liters per minute
+
+        const weeklyUsage = showerTime * showersPerWeek * waterPerMinute;
+        const monthlyUsage = weeklyUsage * 4;
+        const yearlyUsage = weeklyUsage * 52;
+
+        const result = document.getElementById("calculationResult");
+        result.style.display = "block";
+        result.innerHTML = `
+                <h3>Your Water Usage from Showers:</h3>
+                <p>Weekly: ${weeklyUsage.toLocaleString()} liters</p>
+                <p>Monthly: ${monthlyUsage.toLocaleString()} liters</p>
+                <p>Yearly: ${yearlyUsage.toLocaleString()} liters</p>
+                <p>By reducing your shower time by 2 minutes, you could save ${(
+                  2 *
+                  showersPerWeek *
+                  waterPerMinute *
+                  52
+                ).toLocaleString()} liters per year!</p>
+            `;
+      }
+
+      // Fact carousel
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".fact-slide");
+
+      function showSlide(index) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add("active");
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      // Auto advance slides every 5 seconds
+      setInterval(nextSlide, 5000);
+
+      // Pledge functionality
+      function takePledge() {
+        const modal = document.getElementById("pledgeModal");
+        const pledgeText = document.getElementById("pledgeText");
+        const confirmBtn = document.getElementById("confirmPledgeBtn");
+
+        // Show modal
+        modal.style.display = "flex";
+
+        // Reset the animation
+        pledgeText.style.animation = "none";
+        pledgeText.offsetHeight; // Trigger reflow
+        pledgeText.style.animation = "typing 4s steps(200) forwards";
+
+        // Show confirm button after animation
+        setTimeout(() => {
+          confirmBtn.style.display = "block";
+          confirmBtn.style.opacity = "0";
+          confirmBtn.style.transform = "translateY(20px)";
+          setTimeout(() => {
+            confirmBtn.style.transition = "all 0.5s ease";
+            confirmBtn.style.opacity = "1";
+            confirmBtn.style.transform = "translateY(0)";
+          }, 100);
+        }, 4000);
+
+        // Add event listener to confirm button
+        confirmBtn.onclick = function () {
+          const pledgeCount = localStorage.getItem("waterPledgeCount") || 0;
+          localStorage.setItem("waterPledgeCount", parseInt(pledgeCount) + 1);
+
+          // Hide modal with fade effect
+          modal.style.transition = "opacity 0.3s ease";
+          modal.style.opacity = "0";
+          setTimeout(() => {
+            modal.style.display = "none";
+            modal.style.opacity = "1";
+            confirmBtn.style.display = "none";
+            alert(
+              "Thank you for taking the water conservation pledge! Together we can make a difference."
+            );
+          }, 300);
+        };
+      }
+
+      // Logout functionality
+      function logout() {
+        localStorage.removeItem("user");
+        window.location.href = "../loginsignup/index.html";
+      }
+
+      // Placeholder functions for footer links
+      function showSettings() {
+        alert("Settings page coming soon!");
+      }
+
+      function showFeedback() {
+        alert("Feedback form coming soon!");
+      }
     </script>
-</body>
+  </body>
 </html>
