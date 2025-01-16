@@ -96,10 +96,11 @@
         }
 
         .nav-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2563eb;
-        }
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #2563eb;
+        letter-spacing: -0.5px;
+      }
 
         nav ul {
             list-style: none;
@@ -132,18 +133,19 @@
         }
 
         .logout-btn {
-            background: none;
-            border: none;
-            color: #dc2626;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
+        background: none;
+        border: none;
+        color: #dc2626;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        font-size: 1.02rem;
+      }
 
-        .logout-btn:hover {
-            background: #fee2e2;
-        }
+      .logout-btn:hover {
+        background: #fee2e2;
+      }
 
         .tips-container {
             max-width: 1200px;
@@ -278,12 +280,12 @@
 </head>
 <body>
     <nav>
-        <div class="nav-brand">PAVI</div>
+        <div class="nav-brand"><b>PAVI</b></div>
         <ul>
             <li><a href="../homepage/home.html">Dashboard</a></li>
             <li><a href="../tracking/tracking.html">Track Usage</a></li>
             <li><a href="tips.html" class="active">Water Tips</a></li>
-            <li><button onclick="logout()" class="logout-btn">Logout</button></li>
+            <li><button onclick="logout()" class="logout-btn"><b>Logout</b></button></li>
         </ul>
     </nav>
 
