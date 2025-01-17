@@ -71,6 +71,11 @@ body {
     text-decoration: none;
     margin-left: 2rem;
     padding: 0.5rem 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: var(--hover-opacity);
 }
 
 .nav-links a.active {
@@ -398,6 +403,7 @@ footer {
     }
 }
 
+/* Achievements Section */
 .achievements-section {
     background-color: var(--card-background);
     padding: 2rem;
