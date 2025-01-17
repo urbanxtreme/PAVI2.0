@@ -67,7 +67,6 @@ body {
 }
 
 .nav-links a {
-<<<<<<< HEAD
     color: var(--text-color);
     text-decoration: none;
     margin-left: 2rem;
@@ -77,12 +76,6 @@ body {
 
 .nav-links a:hover {
     opacity: var(--hover-opacity);
-=======
-  color: var(--text-color);
-  text-decoration: none;
-  margin-left: 2rem;
-  padding: 0.5rem 1rem;
->>>>>>> 90b4a795759119aa11ab4d461d066dad6d97c0c9
 }
 
 .nav-links a.active {
