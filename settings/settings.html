@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAVI - Water Management Settings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --text-primary: #334155;
+            --text-secondary: #64748b;
+            --bg-light: #f8fafc;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f3ff 0%, #f0f7ff 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .settings-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .settings-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .settings-header h1 {
+            color: var(--primary-dark);
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .settings-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .settings-section {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .settings-section.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .settings-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .usage-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .usage-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .usage-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .device-card {
+            background: var(--bg-light);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .device-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .device-info {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .device-icon {
+            background: #e0e7ff;
+            color: var(--primary);
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .device-details h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .device-details p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-badge.connected {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .alert-settings {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .alert-header h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.75rem;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .footer {
+            background: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-section {
+                padding: 1.5rem;
+            }
+
+            .device-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .device-info {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">PAVI</div>
+        <button onclick="location.href='../homepage/home.html'" class="btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </button>
+    </nav>
+
+    <div class="settings-container">
+        <div class="settings-header">
+            <h1>Water Management Settings</h1>
+            <p>Configure your water monitoring system and preferences</p>
+        </div>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-tachometer-alt"></i>Usage Goals & Thresholds</h2>
+            <div class="grid-3">
+                <div class="usage-card">
+                    <h4>Daily Goal</h4>
+                    <div class="usage-value">45 L</div>
+                    <p>Per Person</p>
+                </div>
+                <div class="usage-card">
+                    <h4>Weekly Goal</h4>
+                    <div class="usage-value">315 L</div>
+                    <p>Per Person</p>
+                </div>
+                <div class="usage-card">
+                    <h4>Monthly Goal</h4>
+                    <div class="usage-value">1,350 L</div>
+                    <p>Per Person</p>
+                </div>
+            </div>
+            <div class="grid-2" style="margin-top: 2rem;">
+                <div class="form-group">
+                    <label for="daily-goal">Daily Water Usage Goal (Liters)</label>
+                    <input type="number" id="daily-goal" class="form-control" value="45">
+                </div>
+                <div class="form-group">
+                    <label for="household-members">Household Members</label>
+                    <input type="number" id="household-members" class="form-control" value="4">
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-microchip"></i>Device Management</h2>
+            <div class="device-card">
+                <div class="device-info">
+                    <div class="device-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="device-details">
+                        <h4>Main Water Meter</h4>
+                        <p>Device ID: WM001</p>
+                        <p>Location: Main Water Line</p>
+                    </div>
+                </div>
+                <div class="status-badge connected">
+                    <i class="fas fa-check-circle"></i>
+                    Connected
+                </div>
+            </div>
+            
+            <div class="device-card">
+                <div class="device-info">
+                    <div class="device-icon">
+                        <i class="fas fa-shower"></i>
+                    </div>
+                    <div class="device-details">
+                        <h4>Bathroom Sensor</h4>
+                        <p>Device ID: WS002</p>
+                        <p>Location: Master Bathroom</p>
+                    </div>
+                </div>
+                <div class="status-badge warning">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Battery Low
+                </div>
+            </div>
+
+            <div class="device-card">
+                <div class="device-info">
+                    <div class="device-icon">
+                        <i class="fas fa-sink"></i>
+                    </div>
+                    <div class="device-details">
+                        <h4>Kitchen Sensor</h4>
+                        <p>Device ID: WS003</p>
+                        <p>Location: Kitchen Sink</p>
+                    </div>
+                </div>
+                <div class="status-badge connected">
+                    <i class="fas fa-check-circle"></i>
+                    Connected
+                </div>
+            </div>
+
+            <button class="btn" style="margin-top: 1rem;">
+                <i class="fas fa-plus"></i>
+                Add New Device
+            </button>
+        </div>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-bell"></i>Alert Settings</h2>
+            <div class="alert-settings">
+                <div class="alert-header">
+                    <h4>Leak Detection Alerts</h4>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="leak-sensitivity">Leak Detection Sensitivity</label>
+                        <select id="leak-sensitivity" class="form-control">
+                            <option value="high">High (Detect minor leaks)</option>
+                            <option value="medium" selected>Medium (Balanced)</option>
+                            <option value="low">Low (Major leaks only)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="leak-threshold">Leak Alert Threshold (L/min)</label>
+                        <input type="number" id="leak-threshold" class="form-control" value="0.5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-settings">
+                <div class="alert-header">
+                    <h4>Usage Alerts</h4>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="daily-threshold">Daily Usage Threshold (%)</label>
+                        <input type="number" id="daily-threshold" class="form-control" value="85">
+                    </div>
+                    <div class="form-group">
+                        <label for="alert-method">Alert Method</label>
+                        <select id="alert-method" class="form-control">
+                            <option value="both" selected>Both Email and SMS</option>
+                            <option value="email">Email Only</option>
+                            <option value="sms">SMS Only</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-settings">
+                <div class="alert-header">
+                    <h4>Maintenance Alerts</h4>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="maintenance-schedule">Maintenance Schedule</label>
+                        <select id="maintenance-schedule" class="form-control">
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly" selected>Quarterly</option>
+                            <option value="biannual">Bi-annual</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reminder-days">Reminder Days Before</label>
+                        <input type="number" id="reminder-days" class="form-control" value="7">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-chart-line"></i>Data Management</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="data-resolution">Data Collection Resolution</label>
+                    <select id="data-resolution" class="form-control">
+                        <option value="1">Every Minute</option>
+                        <option value="5" selected>Every 5 Minutes</option>
+                        <option value="15">Every 15 Minutes</option>
+                        <option value="30">Every 30 Minutes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="storage-period">Data Storage Period</label>
+                    <select id="storage-period" class="form-control">
+                        <option value="3">3 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="12" selected>12 Months</option>
+                        <option value="24">24 Months</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="export-format">Export Format</label>
+                <select id="export-format" class="form-control">
+                    <option value="csv">CSV</option>
+                    <option value="xlsx">Excel (XLSX)</option>
+                    <option value="json">JSON</option>
+                </select>
+            </div>
+            <button class="btn" onclick="exportData()">
+                <i class="fas fa-download"></i>
+                Export Data
+            </button>
+        </div>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-cog"></i>System Preferences</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="units">Measurement Units</label>
+                    <select id="units" class="form-control">
+                        <option value="metric" selected>Metric (Liters)</option>
+                        <option value="imperial">Imperial (Gallons)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timezone">Time Zone</label>
+                    <select id="timezone" class="form-control">
+                        <option value="UTC-8">Pacific Time (PT)</option>
+                        <option value="UTC-5">Eastern Time (ET)</option>
+                        <option value="UTC+0">UTC</option>
+                        <option value="UTC+1">Central European Time (CET)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <button class="btn" onclick="saveSettings()">
+                <i class="fas fa-save"></i>
+                Save Changes
+            </button>
+            <button class="btn" style="background: #6b7280;" onclick="resetSettings()">
+                <i class="fas fa-undo"></i>
+                Reset to Default
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">System Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">User Guide</a></li>
+                    <li><a href="#">Water Saving Tips</a></li>
+                    <li><a href="#">Device Manuals</a></li>
+                    <li><a href="#">API Documentation</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Data Protection</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Stay updated with the latest features and water-saving tips</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.settings-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        function saveSettings() {
+            alert('Settings saved successfully!');
+        }
+
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                alert('Settings have been reset to default values');
+                location.reload();
+            }
+        }
+
+        function exportData() {
+            const format = document.getElementById('export-format').value;
+            alert(`Preparing your data export in ${format.toUpperCase()} format...\nYou will receive an email when it's ready.`);
+        }
+    </script>
+</body>
+</html>
