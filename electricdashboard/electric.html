@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electric Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-gradient/0.5.1/chartjs-plugin-gradient.min.js"></script>
+    <link rel="stylesheet" href="../electricstyle.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="#" class="logo">PAVI</a>
+      <div class="nav-links">
+        <a href="../main.html" class="active" >Home</a>
+        <a href="electric.html" class="active">Dashboard</a>
+        <a href="#">Track Usage</a>
+        <a href="../newtips/electrictips.html">Energy Tips</a>
+        <a href="../loginsignup/index.html"><b>Logout</b></a>
+      </div>
+    </nav>
+    <div class="main-container">
+      <!-- <button class="toggle-sidebar">☰</button> -->
+      <div class="sidebar">
+        <h2 style="margin-bottom: 20px">Locations</h2>
+
+        <div id="hierarchy-container">
+          <!-- Houses and rooms will be rendered here -->
+        </div>
+
+        <div id="rooms-container">
+          <!-- Room content will be rendered here -->
+        </div>
+
+        <button class="add-button" onclick="showModal('house')">
+          <span>+</span>
+          Add House
+        </button>
+      </div>
+
+      <div class="content">
+        <h1 class="dashboard-header">Welcome to Your Energy Dashboard</h1>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>Today's Usage</h3>
+            <div class="stat-value">245 kW</div>
+            <div class="stat-change">↓ 12% vs yesterday</div>
+          </div>
+          <div class="stat-card">
+            <h3>Weekly Average</h3>
+            <div class="stat-value">1840 kW</div>
+            <div class="stat-change">↓ 8% vs last week</div>
+          </div>
+          <div class="stat-card">
+            <h3>Energy Saved</h3>
+            <div class="stat-value">120 kW</div>
+            <div class="stat-change">↑ 15% this month</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h2 class="chart-header">Weekly Usage Overview</h2>
+          <div class="chart-wrapper">
+            <canvas id="energyChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add House Modal -->
+    <div class="modal" id="houseModal">
+      <div class="modal-content">
+        <h2>Add New House</h2>
+        <div class="form-group">
+          <label>House Name</label>
+          <input type="text" id="houseName" placeholder="Enter house name" />
+        </div>
+        <div class="modal-buttons">
+          <button class="modal-button secondary" onclick="hideModal('house')">
+            Cancel
+          </button>
+          <button class="modal-button primary" onclick="addHouse()">
+            Add House
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Room Modal -->
+    <div class="modal" id="roomModal">
+      <div class="modal-content">
+        <h2>Add New Room</h2>
+        <div class="form-group">
+          <label>Room Name</label>
+          <input type="text" id="roomName" placeholder="Enter room name" />
+        </div>
+        <!-- <div class="form-group">
+          <label>House</label>
+          <select id="roomHouse">
+            <!-- Houses will be populated dynamically
+          </select>
+        </div>  -->
+        <div class="modal-buttons">
+          <button class="modal-button secondary" onclick="hideModal('room')">
+            Cancel
+          </button>
+          <button class="modal-button primary" onclick="addRoom()">
+            Add Room
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Device Modal -->
+    <div class="modal" id="deviceModal">
+      <div class="modal-content">
+        <h2>Add New Device</h2>
+        <div class="form-group">
+          <label>Device Name</label>
+          <input type="text" id="deviceName" placeholder="Enter device name" />
+        </div>
+        <div class="form-group">
+          <label>Device Type</label>
+          <select id="deviceType">
+            <option value="light">Light</option>
+            <option value="ac">AC</option>
+            <option value="fan">Fan</option>
+            <option value="tv">TV</option>
+          </select>
+        </div>
+        <!-- <div class="form-group">
+          <label>House</label>
+          <select id="deviceHouse" onchange="updateRoomSelect()"> -->
+        <!-- Houses will be populated dynamically -->
+        <!-- </select>
+        </div>
+        <div class="form-group">
+          <label>Room</label>
+          <select id="deviceRoom"> -->
+        <!-- Rooms will be populated dynamically -->
+        <!-- </select>
+        </div> -->
+        <div class="modal-buttons">
+          <button class="modal-button secondary" onclick="hideModal('device')">
+            Cancel
+          </button>
+          <button class="modal-button primary" onclick="addDevice()">
+            Add Device
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <span class="toast-icon">✓</span>
+      <span class="toast-message"></span>
+    </div>
+
+    <div class="content">
+      <h1 class="dashboard-header"></h1>
+
+      <!-- Search and Filter Section -->
+      <div class="search-bar">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search devices, rooms..."
+        />
+        <select class="filter-dropdown">
+          <option value="all">All Devices</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="warning">Warning</option>
+        </select>
+        <button class="download-btn" onclick="downloadReport()">
+          <i class="fas fa-download"></i>
+          Download Report
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <div class="quick-action-btn" onclick="toggleAllDevices('off')">
+          <i class="fas fa-power-off"></i>
+          Turn Off All
+        </div>
+        <div class="quick-action-btn" onclick="scheduleDevices()">
+          <i class="fas fa-clock"></i>
+          Schedule
+        </div>
+        <div class="quick-action-btn" onclick="showEnergyTips()">
+          <i class="fas fa-lightbulb"></i>
+          Energy Tips
+        </div>
+        <div class="quick-action-btn" onclick="showSettings()">
+          <i class="fas fa-cog"></i>
+          Settings
+        </div>
+      </div>
+
+      <!-- Previous stats grid remains -->
+
+      <!-- Reports Section -->
+      <div class="reports-section">
+        <h2>Reports & Analytics</h2>
+        <div class="reports-grid">
+          <div class="report-card" onclick="downloadReport('daily')">
+            <div class="report-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div>
+              <h3>Daily Report</h3>
+              <p>Download today's usage report</p>
+            </div>
+          </div>
+          <div class="report-card" onclick="downloadReport('weekly')">
+            <div class="report-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+              <h3>Weekly Analysis</h3>
+              <p>View week-over-week comparison</p>
+            </div>
+          </div>
+          <div class="report-card" onclick="downloadReport('monthly')">
+            <div class="report-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div>
+              <h3>Monthly Summary</h3>
+              <p>Complete monthly breakdown</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts Section -->
+      <div class="alerts-section">
+        <h2>Recent Alerts</h2>
+        <div class="alert-item">
+          <div class="alert-icon warning">
+            <i class="fas fa-exclamation"></i>
+          </div>
+          <div>
+            <h3>High Usage Alert</h3>
+            <p>AC Unit in Living Room consuming more power than usual</p>
+          </div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon info">
+            <i class="fas fa-info"></i>
+          </div>
+          <div>
+            <h3>Maintenance Reminder</h3>
+            <p>Kitchen devices due for routine check</p>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>About PAVI</h3>
+            <p>
+              PAVI helps you track and reduce your water consumption through
+              smart monitoring and personalized tips.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="home.html">Dashboard</a></li>
+              <li><a href="../tracking/tracking.html">Track Usage</a></li>
+              <li><a href="../newtips/electrictips.html">Energy Tips</a></li>
+              <li><a href="#" onclick="showSettings()">Settings</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul>
+              <li>Email: oTz2Z@example.com</li>
+              <li>Phone: +91 1234567890</li>
+              <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 PAVI. All rights reserved.</p>
+        </div>
+      </footer>
+      <script src="../electricfunc.js"></script>
+    </div>
+  </body>
+</html>

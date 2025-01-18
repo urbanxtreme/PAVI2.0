@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAVI Dashboard</title>
+    <link rel="stylesheet" href="electricstyle.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+      }
+
+      body {
+        background-color: #f0f7ff;
+      }
+
+      .navbar {
+        background-color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        color: #1a56db;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .nav-links a {
+        color: #1a56db;
+        text-decoration: none;
+        margin-left: 2rem;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      .nav-links a:after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #1a56db;
+        transition: width 0.3s;
+      }
+
+      .nav-links a:hover:after {
+        width: 100%;
+      }
+
+      .logout {
+        color: #dc2626;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      .welcome-section {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .welcome-text {
+        color: #1a56db;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .date-time {
+        color: #6b7280;
+        font-size: 1.1rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .metric {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .metric-title {
+        color: #6b7280;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .metric-value {
+        color: #1a56db;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+      }
+
+      .metric-change {
+        color: #059669;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        padding: 0.5rem;
+        background: #f0fdf4;
+        border-radius: 20px;
+        width: fit-content;
+        margin: 0 auto;
+      }
+
+      .metric-change.decrease {
+        color: #059669;
+        background: #f0fdf4;
+      }
+
+      .metric-change.increase {
+        color: #dc2626;
+        background: #fef2f2;
+      }
+
+      .chart-container {
+        height: 250px;
+        margin-top: 1rem;
+      }
+
+      .controls-section {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .controls-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .control-card {
+        background: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .control-card:hover {
+        background: #1a56db;
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .control-card i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #1a56db;
+      }
+
+      .control-card:hover i {
+        color: white;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .action-btn {
+        background: #1a56db;
+        color: white;
+        border: none;
+        padding: 1.2rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .action-btn:hover {
+        background: #1e429f;
+        transform: translateY(-2px);
+      }
+
+      .alerts-section {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .alert {
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .alert-info {
+        background: #eff6ff;
+        color: #1e429f;
+      }
+
+      .alert-warning {
+        background: #fffbeb;
+        color: #b45309;
+      }
+
+      @media (max-width: 768px) {
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">PAVI</div>
+      <div class="nav-links">
+        <a href="main.html"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="../electricdashboard/electric.html"><i class="fas fa-bolt"></i> Electricity</a>
+        <a href="#water"><i class="fas fa-water"></i> Water</a>
+        <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+        <a href="../loginsignup/index.html" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="welcome-section">
+        <h1 class="welcome-text">Welcome back, User!</h1>
+        <div class="date-time" id="datetime"></div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Electricity Summary -->
+        <div class="card">
+          <div class="metric">
+            <div class="metric-title">Today's Electricity Usage</div>
+            <div class="metric-value">8.2 kWh</div>
+            <div class="metric-change decrease">
+              <i class="fas fa-arrow-down"></i> 15% vs yesterday
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="electricityChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Water Summary -->
+        <div class="card">
+          <div class="metric">
+            <div class="metric-title">Today's Water Usage</div>
+            <div class="metric-value">45 L</div>
+            <div class="metric-change decrease">
+              <i class="fas fa-arrow-down"></i> 12% vs yesterday
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="waterChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <h2 style="margin-bottom: 1.5rem; color: #1a56db">Quick Controls</h2>
+        <div class="controls-grid">
+          <div class="control-card">
+            <i class="fas fa-lightbulb"></i>
+            <h3>Smart Lighting</h3>
+            <p>Control all lights</p>
+          </div>
+          <div class="control-card">
+            <i class="fas fa-temperature-high"></i>
+            <h3>Temperature</h3>
+            <p>Adjust temperature</p>
+          </div>
+          <div class="control-card">
+            <i class="fas fa-faucet"></i>
+            <h3>Water Heater</h3>
+            <p>Control water heating</p>
+          </div>
+          <div class="control-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Security</h3>
+            <p>View security status</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="alerts-section">
+        <h2 style="margin-bottom: 1.5rem; color: #1a56db">Recent Alerts</h2>
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle"></i>
+          <div>Water usage is 12% lower than yesterday. Great job!</div>
+        </div>
+        <div class="alert alert-warning">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div>
+            Kitchen tap has been running for 15 minutes. Consider checking it.
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button class="action-btn">
+          <i class="fas fa-chart-line"></i> View Detailed Reports
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-clock"></i> Schedule Smart Controls
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-lightbulb"></i> View Energy Tips
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-history"></i> Usage History
+        </button>
+      </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>About PAVI</h3>
+            <p>
+              PAVI helps you track and reduce your water consumption through
+              smart monitoring and personalized tips.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="main.html">Dashboard</a></li>
+              <li><a href="../electricdashboard/electric.html">Electricity Details</a></li>
+              <li><a href="#">Water Details</a></li>
+              <li><a href="#" onclick="showSettings()">Settings</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul>
+              <li>Email: oTz2Z@example.com</li>
+              <li>Phone: +91 1234567890</li>
+              <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 PAVI. All rights reserved.</p>
+        </div>
+      </footer>
+
+    <script>
+      // Update date and time
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        };
+        document.getElementById("datetime").textContent =
+          now.toLocaleDateString("en-US", options);
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+
+      // Sample data for charts
+      const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+      // Electricity Usage Chart
+      const electricityCtx = document
+        .getElementById("electricityChart")
+        .getContext("2d");
+      const electricityChart = new Chart(electricityCtx, {
+        type: "line",
+        data: {
+          labels: days,
+          datasets: [
+            {
+              label: "Electricity Usage (kWh)",
+              data: [7.5, 8.2, 7.8, 8.5, 7.2, 6.8, 7.0],
+              borderColor: "#1a56db",
+              backgroundColor: "rgba(26, 86, 219, 0.1)",
+              fill: true,
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: "rgba(0, 0, 0, 0.05)",
+              },
+            },
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+          },
+        },
+      });
+
+      // Water Usage Chart
+      const waterCtx = document.getElementById("waterChart").getContext("2d");
+      const waterChart = new Chart(waterCtx, {
+        type: "line",
+        data: {
+          labels: days,
+          datasets: [
+            {
+              label: "Water Usage (L)",
+              data: [42, 45, 40, 48, 43, 47, 41],
+              borderColor: "#2563eb",
+              backgroundColor: "rgba(37, 99, 235, 0.1)",
+              fill: true,
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: "rgba(0, 0, 0, 0.05)",
+              },
+            },
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+          },
+        },
+      });
+
+      // Control card functionality
+      const controlCards = {
+        "Smart Lighting": function () {
+          const status = Math.random() > 0.5;
+          return {
+            title: "Smart Lighting Control",
+            content: `Current status: ${status ? "ON" : "OFF"}
+                    <br><br>
+                    <button onclick="toggleLights()" class="action-btn">
+                        ${status ? "Turn OFF" : "Turn ON"}
+                    </button>`,
+          };
+        },
+        Temperature: function () {
+          const currentTemp = Math.floor(Math.random() * 5) + 20;
+          return {
+            title: "Temperature Control",
+            content: `Current temperature: ${currentTemp}°C
+                    <br><br>
+                    <input type="range" min="16" max="30" value="${currentTemp}" 
+                           oninput="updateTemperature(this.value)">
+                    <br>
+                    <span id="temp-value">${currentTemp}°C</span>`,
+          };
+        },
+        "Water Heater": function () {
+          const status = Math.random() > 0.5;
+          return {
+            title: "Water Heater Control",
+            content: `Current status: ${status ? "ON" : "OFF"}
+                    <br>
+                    Temperature: 45°C
+                    <br><br>
+                    <button onclick="toggleWaterHeater()" class="action-btn">
+                        ${status ? "Turn OFF" : "Turn ON"}
+                    </button>`,
+          };
+        },
+        Security: function () {
+          return {
+            title: "Security Status",
+            content: `All systems operational
+                    <br>
+                    Last check: ${new Date().toLocaleTimeString()}
+                    <br><br>
+                    <button onclick="runSecurityCheck()" class="action-btn">
+                        Run Security Check
+                    </button>`,
+          };
+        },
+      };
+
+      // Modal functionality
+      function createModal(title, content) {
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+
+        const modalContent = document.createElement("div");
+        modalContent.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                max-width: 500px;
+                width: 90%;
+                position: relative;
+            `;
+
+        const closeButton = document.createElement("button");
+        closeButton.innerHTML = "×";
+        closeButton.style.cssText = `
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                border: none;
+                background: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #666;
+            `;
+        closeButton.onclick = () => modal.remove();
+
+        const titleElement = document.createElement("h2");
+        titleElement.textContent = title;
+        titleElement.style.marginBottom = "1rem";
+
+        const contentElement = document.createElement("div");
+        contentElement.innerHTML = content;
+
+        modalContent.appendChild(closeButton);
+        modalContent.appendChild(titleElement);
+        modalContent.appendChild(contentElement);
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+      }
+
+      // Add click handlers for control cards
+      document.querySelectorAll(".control-card").forEach((card) => {
+        card.addEventListener("click", function () {
+          const title = this.querySelector("h3").textContent;
+          const controlFunction = controlCards[title];
+          if (controlFunction) {
+            const { title: modalTitle, content } = controlFunction();
+            createModal(modalTitle, content);
+          }
+        });
+      });
+
+      // Control functions
+      function toggleLights() {
+        const newStatus = Math.random() > 0.5;
+        alert(`Lights turned ${newStatus ? "ON" : "OFF"}`);
+      }
+
+      function updateTemperature(value) {
+        document.getElementById("temp-value").textContent = `${value}°C`;
+      }
+
+      function toggleWaterHeater() {
+        const newStatus = Math.random() > 0.5;
+        alert(`Water heater turned ${newStatus ? "ON" : "OFF"}`);
+      }
+
+      function runSecurityCheck() {
+        alert("Running security check... All systems operational!");
+      }
+
+      // Action button handlers
+      document.querySelectorAll(".action-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const action = this.textContent.trim();
+          switch (action) {
+            case "View Detailed Reports":
+              createModal(
+                "Detailed Reports",
+                `
+                            <h3>Weekly Summary</h3>
+                            <p>Total Electricity Usage: 56.4 kWh</p>
+                            <p>Total Water Usage: 315 L</p>
+                            <br>
+                            <button class="action-btn">Download Report</button>
+                        `
+              );
+              break;
+            case "Schedule Smart Controls":
+              createModal(
+                "Schedule Controls",
+                `
+                            <h3>Set Schedule</h3>
+                            <div style="margin: 1rem 0;">
+                                <label>Device:</label>
+                                <select style="margin-left: 1rem;">
+                                    <option>Smart Lights</option>
+                                    <option>Water Heater</option>
+                                    <option>AC</option>
+                                </select>
+                            </div>
+                            <div style="margin: 1rem 0;">
+                                <label>Time:</label>
+                                <input type="time" style="margin-left: 1rem;">
+                            </div>
+                            <button class="action-btn">Set Schedule</button>
+                        `
+              );
+              break;
+            case "View Energy Tips":
+              createModal(
+                "Energy Saving Tips",
+                `
+                            <ul style="list-style-type: none; padding: 0;">
+                                <li style="margin: 1rem 0;">💡 Turn off lights when leaving rooms</li>
+                                <li style="margin: 1rem 0;">🌡️ Set AC temperature to 24°C for optimal efficiency</li>
+                                <li style="margin: 1rem 0;">🚰 Fix any leaking taps promptly</li>
+                                <li style="margin: 1rem 0;">⚡ Use energy-efficient appliances</li>
+                            </ul>
+                        `
+              );
+              break;
+            case "Usage History":
+              createModal(
+                "Usage History",
+                `
+                            <div style="margin: 1rem 0;">
+                                <label>Select Period:</label>
+                                <select style="margin-left: 1rem;">
+                                    <option>Last Week</option>
+                                    <option>Last Month</option>
+                                    <option>Last 3 Months</option>
+                                </select>
+                            </div>
+                            <div style="margin: 1rem 0;">
+                                <canvas id="historyChart"></canvas>
+                            </div>
+                        `
+              );
+              // Initialize history chart
+              const historyCtx = document
+                .getElementById("historyChart")
+                .getContext("2d");
+              new Chart(historyCtx, {
+                type: "bar",
+                data: {
+                  labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+                  datasets: [
+                    {
+                      label: "Energy Usage (kWh)",
+                      data: [350, 320, 290, 280],
+                      backgroundColor: "#1a56db",
+                    },
+                  ],
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                },
+              });
+              break;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

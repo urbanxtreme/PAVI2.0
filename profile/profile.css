@@ -1,0 +1,502 @@
+:root {
+  --primary-color: #3366cc;
+  --secondary-color: #ff6b6b;
+  --background-color: #f0f8ff;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --border-radius: 8px;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --hover-opacity: 0.8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Notification Bar */
+.notification-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem;
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.notification-bar.show {
+  transform: translateY(0);
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Navigation */
+.navbar {
+  background-color: var(--card-background);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+}
+
+.logo {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 2rem;
+    padding: 0.5rem 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: var(--hover-opacity);
+}
+
+.nav-links a.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius);
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Profile Header Section */
+.profile-header-section {
+  background-color: var(--card-background);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  margin: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-header-section:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.profile-pic-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1rem;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+}
+
+.upload-btn {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: #2855b0;
+  transform: translateX(-50%) translateY(-3px);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.bill-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.bill-btn:hover {
+  opacity: var(--hover-opacity);
+}
+
+/* Room Management */
+.room-management {
+  background-color: var(--card-background);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.room-card {
+  background-color: var(--background-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-5px);
+}
+
+.room-card h3 {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.device-list {
+  list-style: none;
+}
+
+.device-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.device-status {
+  font-size: 0.9rem;
+}
+
+.device-status.active {
+  color: #28a745;
+}
+
+.device-status.inactive {
+  color: #dc3545;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: var(--card-background);
+  margin: 5% auto;
+  padding: 2rem;
+  width: 90%;
+  max-width: 700px;
+  border-radius: var(--border-radius);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.close-modal {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.current-bill,
+.estimated-bill {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.bill-amount {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.bill-period {
+  color: #666;
+}
+
+/* Bill History Graph */
+.bill-history {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+}
+
+.bill-history h3 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#billGraph {
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-header-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .profile-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .quick-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-content {
+    margin: 10% auto;
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .bill-amount {
+    font-size: 2rem;
+  }
+}
+
+/* Footer */
+footer {
+  background: white;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2rem 1rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.footer-section {
+  padding: 1rem;
+}
+
+.footer-section h3 {
+  color: #1e40af;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-section p {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #2563eb;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-section {
+    padding: 0;
+  }
+}
+
+/* Achievements Section */
+.achievements-section {
+  background-color: var(--card-background);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  margin: 2rem 0;
+  box-shadow: var(--shadow);
+}
+
+.achievements-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.achievement-card {
+  background-color: var(--background-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.achievement-card:hover {
+  transform: translateY(-5px);
+}
+
+.achievement-card.bronze {
+  border-color: #cd7f32;
+}
+
+.achievement-card.silver {
+  border-color: #c0c0c0;
+}
+
+.achievement-card.gold {
+  border-color: #ffd700;
+}
+
+.achievement-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.achievement-card.bronze .achievement-icon {
+  color: #cd7f32;
+}
+
+.achievement-card.silver .achievement-icon {
+  color: #c0c0c0;
+}
+
+.achievement-card.gold .achievement-icon {
+  color: #ffd700;
+}
+
+.achievement-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.achievement-date {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 1rem;
+}
+
+.achievement-modal .achievement-details {
+  text-align: center;
+  padding: 2rem;
+}
+
+.achievement-modal .achievement-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.room-card .device-list .device-consumption {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
