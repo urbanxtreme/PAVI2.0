@@ -311,7 +311,7 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="logo">PAVI</div>
+      <a href="../main.html" class="logo">PAVI</a>
       <div class="nav-links">
         <a href="main.html"><i class="fas fa-home"></i> Dashboard</a>
         <a href="../electricdashboard/electric.html"
@@ -319,6 +319,7 @@
         >
         <a href="../homepage/home.html"><i class="fas fa-water"></i> Water</a>
         <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+        <a href="../profile/profile.html"><i class="fas fa-user"></i> Profile</a>
         <a href="../loginsignup/index.html" class="logout"
           ><i class="fas fa-sign-out-alt"></i> Logout</a
         >
@@ -333,13 +334,13 @@
 
       <div class="quick-controls-section">
         <div class="quick-controls-grid">
-          <div class="quick-control-card">
+          <div onclick="window.location.href = '../electricdashboard/electric.html'" class="quick-control-card">
             <i class="fas fa-bolt"></i>
-            <a href="../electricdashboard/electric.html"><h3 class="quick-control-title">Electricity</h3></a>
+            <h3 class="quick-control-title">Electricity</h3>
           </div>
-          <div class="quick-control-card">
+          <div onclick="window.location.href = '../homepage/home.html'" class="quick-control-card">
             <i class="fas fa-water"></i>
-            <a href="../homepage/home.html"><h3 class="quick-control-title">Water</h3></a>
+            <h3 class="quick-control-title">Water</h3>
           </div>
         </div>
       </div>

@@ -222,7 +222,7 @@ loginForm.addEventListener("submit", (e) => {
       localStorage.setItem('currentUser', JSON.stringify(user));
       localStorage.setItem('isLoggedIn', 'true');
       alert("Login successful!");
-      window.location.href = '../homepage/home.html';
+      window.location.href = '../main.html';
     } else {
       alert("Invalid password. Please check your password and try again.");
     }

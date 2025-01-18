@@ -25,7 +25,7 @@
 
 .quick-action-btn i {
   font-size: 20px;
-  color: var(--primary-color);
+  color: #2563eb;
 }
 
 /* Reports Section */
@@ -86,7 +86,7 @@ width: 100%;
 .report-icon {
   width: 40px;
   height: 40px;
-  background: var(--primary-color);
+  background: #2563eb;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -126,7 +126,7 @@ width: 100%;
 }
 
 .alert-icon.info {
-  background: var(--primary-color);
+  background: #2563eb;
 }
 
 /* Search Bar */
@@ -145,14 +145,14 @@ width: 100%;
 
 .search-input:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.1);
 }
 
 /* Download Button */
 .download-btn {
   padding: 8px 16px;
-  background: var(--primary-color);
+  background: #2563eb;
   color: white;
   border: none;
   border-radius: 8px;
@@ -235,7 +235,7 @@ width: 100%;
 
 .action-button:hover {
   background-color: rgba(26, 86, 219, 0.2);
-  color: var(--primary-color);
+  color: #2563eb;
 }
 
 .toggle-icon {
@@ -264,14 +264,14 @@ width: 100%;
 
 .editable-input:focus {
   outline: none;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid #2563eb;
 }
 
 .add-button {
   margin-left: 28px;
   background-color: transparent;
-  color: var(--primary-color);
-  border: 1px dashed var(--primary-color);
+  color: #2563eb;
+  border: 1px dashed #2563eb;
 }
 
 .add-button:hover {
@@ -324,7 +324,7 @@ width: 100%;
 .inline-edit {
   background: none;
   border: none;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid #2563eb;
   padding: 2px 4px;
   margin: -2px -4px;
   font-size: inherit;
@@ -364,7 +364,7 @@ body {
 .navbar {
   background: white;
   padding: 1rem 2rem;
-  color: var(--primary-color);
+  color: #2563eb;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -379,7 +379,7 @@ body {
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: var(--primary-color);
+  color: #2563eb;
   text-decoration: none;
   position: relative;
   overflow: hidden;
@@ -392,7 +392,7 @@ body {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--primary-color);
+  background: #2563eb;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 }
@@ -437,7 +437,7 @@ body {
 }
 
 .nav-links a.active {
-  background-color: var(--primary-color);
+  background-color: #2563eb;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(26, 86, 219, 0.2);
@@ -471,7 +471,7 @@ body {
   position: absolute;
   left: 280px;
   top: 80px;
-  background: var(--primary-color);
+  background: #2563eb;
   color: white;
   border: none;
   padding: 8px;
@@ -593,7 +593,7 @@ body {
 
 .dashboard-header {
   text-align: center;
-  color: var(--primary-color);
+  color: #2563eb;
   margin-bottom: 30px;
   animation: fadeIn 0.8s ease-out;
 }
@@ -656,7 +656,7 @@ body {
 }
 
 .stat-value {
-  color: var(--primary-color);
+  color: #2563eb;
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 5px;
@@ -683,7 +683,7 @@ body {
 }
 
 .chart-header {
-  color: var(--primary-color);
+  color: #2563eb;
   margin-bottom: 20px;
 }
 
@@ -696,7 +696,7 @@ body {
   width: 100%;
   padding: 12px;
   margin: 8px 0;
-  background-color: var(--primary-color);
+  background-color: #2563eb;
   color: white;
   border: none;
   border-radius: 8px;
@@ -773,7 +773,7 @@ body {
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.1);
 }
 
@@ -793,7 +793,7 @@ body {
 }
 
 .modal-button.primary {
-  background: var(--primary-color);
+  background: #2563eb;
   color: white;
 }
 
