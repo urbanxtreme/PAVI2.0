@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAVI - Energy Conservation Tips</title>
+    <link rel="stylesheet" href="../electricstyle.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="#" class="logo">PAVI</a>
+      <div class="nav-links">
+        <a href="../main.html" class="active" >Home</a>
+        <a href="../electricdashboard/electric.html" class="active">Dashboard</a>
+        <a href="#">Track Usage</a>
+        <a href="electrictips.html">Energy Tips</a>
+        <a href="#"><b>Logout</b></a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <br><h1>Save Energy, Save Earth</h1>
+      <p>
+        Small changes in our daily habits can make a huge difference in energy
+        conservation. Join us in our mission to create a sustainable future.
+      </p>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h3>⚡ Smart Lighting</h3>
+        <p>
+          Switch to LED bulbs and use natural light when possible. Turn off
+          lights when leaving rooms. Install motion sensors for automatic
+          control.
+        </p>
+      </div>
+      <div class="tip-card">
+        <h3>🌡️ Temperature Control</h3>
+        <p>
+          Set your thermostat to optimal temperatures: 78°F in summer and 68°F
+          in winter. Use programmable thermostats for better control.
+        </p>
+      </div>
+      <div class="tip-card">
+        <h3>🔌 Standby Power</h3>
+        <p>
+          Unplug electronics when not in use. Use power strips to easily cut off
+          multiple devices. Standby power can account for 10% of energy use.
+        </p>
+      </div>
+      <div class="tip-card">
+        <h3>🏠 Energy-Efficient Appliances</h3>
+        <p>
+          Choose ENERGY STAR certified appliances. Run them during off-peak
+          hours and only when full. Maintain regularly for optimal efficiency.
+        </p>
+      </div>
+    </div>
+
+    <div class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">30%</div>
+          <p>Average savings with LED bulbs</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1200</div>
+          <p>kWh saved per year with smart thermostats</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10%</div>
+          <p>Energy wasted by phantom loads</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="calculator">
+      <h2>Energy Usage Calculator</h2>
+      <div class="input-group">
+        <label>Average daily usage (kWh):</label>
+        <input type="number" id="usage" placeholder="Enter kWh" />
+      </div>
+      <div class="input-group">
+        <label>Hours of peak usage:</label>
+        <input type="number" id="hours" placeholder="Enter hours" />
+      </div>
+      <button class="calculate-btn" onclick="calculateUsage()">
+        Calculate Usage
+      </button>
+    </div>
+
+    <div class="seasonal-tips">
+      <h2>Winter Energy Saving Tips</h2>
+      <ul class="tips-list">
+        <li>Seal windows and doors to prevent heat loss</li>
+        <li>Reverse ceiling fans to push warm air down</li>
+        <li>Use heavy curtains to insulate windows</li>
+        <li>Schedule heating system maintenance</li>
+        <li>Use space heaters wisely in occupied rooms</li>
+      </ul>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About PAVI</h3>
+          <p>
+            PAVI helps you track and reduce your water consumption through smart
+            monitoring and personalized tips.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li>
+              <a href="../electricdashboard/electric.html">Dashboard</a>
+            </li>
+            <li><a href="../tracking/tracking.html">Track Usage</a></li>
+            <li><a href="electrictips.html">Energy Tips</a></li>
+            <li><a href="#" onclick="showSettings()">Settings</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>Email: oTz2Z@example.com</li>
+            <li>Phone: +91 1234567890</li>
+            <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 PAVI. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="../electricfunc.js"></script>
+  </body>
+</html>
