@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Home Profile - PAVI</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <!-- Notification Bar -->
+    <div id="notificationBar" class="notification-bar">
+      <div class="notification-content">
+        <i class="fas fa-bell"></i>
+        <span id="notificationText">Loading notifications...</span>
+      </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">PAVI</div>
+        <div class="nav-links">
+            <a href="#" class="active">Go to Dashboard</a> <!-- Keeping only 'Dashboard' link -->
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Achievement Section -->
+        <div class="achievements-section">
+            <h2><i class="fas fa-trophy"></i> Your Achievements</h2>
+            <div class="achievements-grid" id="achievementsGrid">
+                <!-- Achievements will be populated dynamically -->
+            </div>
+            <h3><i class="fas fa-unlock-alt"></i> Achievements You Can Reach</h3>
+            <div class="possible-achievements" id="possibleAchievementsGrid">
+                <!-- Achievements that the user can unlock will be populated dynamically -->
+            </div>
+        </div>
+      </div>
+
+      <div class="profile-header-section">
+        <div class="profile-info">
+          <div class="profile-pic-container">
+            <img
+              src="https://via.placeholder.com/100"
+              alt="Profile Picture"
+              class="profile-pic"
+              id="profilePic"
+            />
+            <input
+              type="file"
+              id="uploadProfilePic"
+              accept="image/*"
+              style="display: none"
+            />
+            <button
+              onclick="document.getElementById('uploadProfilePic').click();"
+              class="upload-btn"
+            >
+              Change Picture
+            </button>
+          </div>
+          <div class="user-details">
+            <h1 id="userName">John Smith</h1>
+            <h2 id="houseName">Smart Villa #123</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button id="showWaterBill" class="bill-btn">
+          <i class="fas fa-water"></i> Water Bill
+        </button>
+        <br />
+        <button id="showElectricityBill" class="bill-btn">
+          <i class="fas fa-bolt"></i> Electricity Bill
+        </button>
+      </div>
+
+      <div class="smart-home-overview">
+        <div class="room-management">
+          <h2>Room Overview</h2>
+          <div class="rooms-grid" id="roomsGrid">
+            <!-- Rooms will be populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="leaderboard-section">
+            <h2><i class="fas fa-crown"></i> Top Performers</h2>
+            <table class="leaderboard-table" id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Achievements</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Leaderboard data will be populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Offers Section -->
+        <div class="offers-section">
+            <h2><i class="fas fa-gift"></i> Exclusive Offers</h2>
+            <div class="offers-grid" id="offersGrid">
+                <!-- Offers will be dynamically added here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Achievement Modal -->
+    <div id="achievementModal" class="modal">
+      <div class="modal-content achievement-modal">
+        <div class="modal-header">
+          <h2>Achievement Unlocked! 🏆</h2>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="achievement-details">
+            <div class="achievement-icon"></div>
+            <h3 id="achievementTitle"></h3>
+            <p id="achievementDescription"></p>
+            <div class="achievement-date" id="achievementDate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bill Modal -->
+    <div id="billModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Bill Details</h2>
+            </div>
+            <div class="modal-body">
+                <div class="current-bill">
+                    <h3>Current Bill</h3>
+                    <div class="bill-amount" id="currentBillAmount">$0.00</div>
+                    <div class="bill-period" id="currentBillPeriod"></div>
+                </div>
+                <div class="estimated-bill">
+                    <h3>Estimated Next Bill</h3>
+                    <div class="bill-amount" id="estimatedBillAmount">$0.00</div>
+                    <div class="bill-period" id="estimatedBillPeriod"></div>
+                </div>
+                <div class="bill-history">
+                    <h3>6-Month History & Prediction</h3>
+                    <canvas id="billGraph"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+          <div class="current-bill">
+            <h3>Current Bill</h3>
+            <div class="bill-amount" id="currentBillAmount">$0.00</div>
+            <div class="bill-period" id="currentBillPeriod"></div>
+          </div>
+          <div class="estimated-bill">
+            <h3>Estimated Next Bill</h3>
+            <div class="bill-amount" id="estimatedBillAmount">$0.00</div>
+            <div class="bill-period" id="estimatedBillPeriod"></div>
+          </div>
+          <div class="bill-history">
+            <h3>6-Month History & Prediction</h3>
+            <canvas id="billGraph"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About PAVI</h3>
+          <p>
+            PAVI helps you track and reduce your water consumption through smart
+            monitoring and personalized tips.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="home.html">Dashboard</a></li>
+            <li><a href="../tracking/tracking.html">Track Usage</a></li>
+            <li><a href="../tips/tips.html">Water Tips</a></li>
+            <li><a href="#" onclick="showSettings()">Settings</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>Email: oTz2Z@example.com</li>
+            <li>Phone: +91 1234567890</li>
+            <li><a href="#" onclick="showFeedback()">Send Feedback</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 PAVI. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="profile.js"></script>
+  </body>
+</html>
