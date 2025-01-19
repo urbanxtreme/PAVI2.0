@@ -259,49 +259,48 @@
         }
       }
 
-
       .quick-controls-section {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-        }
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px;
+      }
 
-        /* Quick controls grid */
-        .quick-controls-grid {
-            display: flex;
-            gap: 20px;
-        }
+      /* Quick controls grid */
+      .quick-controls-grid {
+        display: flex;
+        gap: 20px;
+      }
 
-        /* Quick control card */
-        .quick-control-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            width: 200px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+      /* Quick control card */
+      .quick-control-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        width: 200px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
 
-        .quick-control-card:hover {
-            transform: scale(1.05);
-        }
+      .quick-control-card:hover {
+        transform: scale(1.05);
+      }
 
-        /* Icon styles */
-        .quick-control-card i {
-            color: #007bff;
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
+      /* Icon styles */
+      .quick-control-card i {
+        color: #007bff;
+        font-size: 3em;
+        margin-bottom: 10px;
+      }
 
-        /* Title styles */
-        .quick-control-title {
-            color: #343a40;
-            font-size: 1.2em;
-            margin: 0;
-        }
+      /* Title styles */
+      .quick-control-title {
+        color: #343a40;
+        font-size: 1.2em;
+        margin: 0;
+      }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <link
@@ -319,7 +318,9 @@
         >
         <a href="../homepage/home.html"><i class="fas fa-water"></i> Water</a>
         <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
-        <a href="../profile/profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="../profile/profile.html"
+          ><i class="fas fa-user"></i> Profile</a
+        >
         <a href="../loginsignup/index.html" class="logout"
           ><i class="fas fa-sign-out-alt"></i> Logout</a
         >
@@ -334,11 +335,17 @@
 
       <div class="quick-controls-section">
         <div class="quick-controls-grid">
-          <div onclick="window.location.href = '../electricdashboard/electric.html'" class="quick-control-card">
+          <div
+            onclick="window.location.href = '../electricdashboard/electric.html'"
+            class="quick-control-card"
+          >
             <i class="fas fa-bolt"></i>
             <h3 class="quick-control-title">Electricity</h3>
           </div>
-          <div onclick="window.location.href = '../homepage/home.html'" class="quick-control-card">
+          <div
+            onclick="window.location.href = '../homepage/home.html'"
+            class="quick-control-card"
+          >
             <i class="fas fa-water"></i>
             <h3 class="quick-control-title">Water</h3>
           </div>

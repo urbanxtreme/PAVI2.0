@@ -151,9 +151,7 @@ function displayPlumbers(plumbers) {
 }
 
 function contactPlumber(plumberId) {
-  alert(
-    `Connecting you to the plumber... They will contact you shortly.`
-  );
+  alert(`Connecting you to the plumber... They will contact you shortly.`);
 }
 
 // Tips Carousel Functions

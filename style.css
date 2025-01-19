@@ -44,7 +44,7 @@ body {
 }
 
 button {
-  background-color: #2563eb);
+  background-color: #2563eb;
   color: white;
   padding: 12px;
   border: none;
@@ -59,7 +59,7 @@ button:hover {
 }
 
 nav {
-  background-color: #2563eb);
+  background-color: #2563eb;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -110,7 +110,7 @@ nav a {
 .stat-value {
   font-size: 2rem;
   font-weight: bold;
-  color: #2563eb);
+  color: #2563eb;
 }
 
 .usage-chart {
